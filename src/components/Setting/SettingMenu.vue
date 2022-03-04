@@ -76,12 +76,6 @@
 export default {
   name: "SettingMenu",
   data() {
-    if (window.localStorage.getItem("autoDark")===null){
-      window.localStorage.setItem("autoDark", "true")
-    }
-    if (window.localStorage.getItem("autoDark")==="true"){
-      this.$vuetify.theme.dark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    } else this.$vuetify.theme.dark = window.localStorage.getItem("darkTheme") === "true";
     return {
       test: this.$i18n.locale,
       autoDark: window.localStorage.getItem("autoDark")==="true",
