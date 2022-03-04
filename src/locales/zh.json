@@ -1,0 +1,66 @@
+{
+  "name": "繁體中文",
+  "RF": "攻略查找器",
+  "Copied": "已複製",
+  "HomePage": {
+    "title": "White Arknights Tool",
+    "needHelp": "玩方舟時遇到困難嗎？",
+    "beatLevels": "覺得很難打過關卡？",
+    "try": "試試",
+    "howToSolve": "看看誰也在使用你的幹員來打過關卡。",
+
+    "developing": "更多功能還在開發中...",
+
+    "help": "幫幫",
+    "us": "我們",
+    "me": "我",
+    "plzCr": "只有我在開發這個工具！所以如果你想幫助我或者你知道有什麼可以讓這些工具更好地工作，請創建",
+    "contDC": "或者在 Discord 上聯繫我",
+    "copyID": "複製 ID",
+    "tip": "无偿，但我會把你加到特別感謝名單中",
+
+    "l": "知識共享許可協議",
+    "using": "這個項目正在使用",
+    "show": "讓我康康:)",
+
+    "ST": "特別感謝名單",
+    "thanks": "非常感謝你們！",
+    "thanksList": {
+      "PS": {
+        "name": "企鵝物流數據統計",
+        "msg": "感謝您的網站給了我設計 GUI 的靈感。"
+      },
+      "AT": {
+        "name": "明日方舟工具箱",
+        "msg": "感謝您的網站給了我設計 GUI 的靈感。"
+      },
+      "PRTS": {
+        "name": "PRTS",
+        "msg": "感謝您的網站提供的幹員信息。"
+      },
+      "VC": {
+        "name": "Vue Cli",
+        "msg": "感謝您幫了我建立此網站。"
+      },
+      "Vuetify": {
+        "name": "Vuetify",
+        "msg": "感謝您幫了我建立此網站。"
+      }
+    },
+
+    "Issues": "問題",
+    "ifFind": "如果你發現有任何",
+    "Errors": "錯誤",
+    "or": "或者",
+    "Bugs": "Bugs",
+    "report": "請創建一個",
+    "fix": "報告它。我會盡快修復它。謝謝！"
+  },
+
+  "Settings": {
+    "language": {
+      "title": "設定語言",
+      "setLanguage": "成功設置語言"
+    }
+  }
+}

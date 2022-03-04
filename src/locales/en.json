@@ -1,0 +1,68 @@
+{
+  "name": "English",
+
+
+  "RF": "Raiders Finder",
+  "Copied": "Copied",
+  "HomePage": {
+    "title": "White Arknights Tool",
+    "needHelp": "Need Help In Arknights?",
+    "beatLevels": "Feeling hard to beat the levels?",
+    "try": "Try ",
+    "howToSolve": "Check who are also using your operators to solve the levels.",
+
+    "developing": "More Function is developing...",
+
+    "help": "Help ",
+    "us": "Us ",
+    "me": "ME",
+    "plzCr": "It's just me developing this page! So if you want to help me or you know anything can let these tools work better, please create",
+    "contDC": "or contact me on Discord",
+    "copyID": "Copy ID",
+    "tip": "there will be no money reward, but I will add you in the special thanks list",
+
+    "l": "LICENSE",
+    "using": "This Project is using ",
+    "show": "Show me",
+
+    "ST": "Special Thanks",
+    "thanks": "Thank you very much!",
+    "thanksList": {
+      "PS": {
+        "name": "Penguin Stats",
+        "msg": "Thanks for your website give me inspiration to design te UI."
+      },
+      "AT": {
+        "name": "Arknights Toolbox",
+        "msg": "Thanks for your website give me inspiration to design te UI."
+      },
+      "PRTS": {
+        "name": "PRTS",
+        "msg": "Thanks for the information of the Operators."
+      },
+      "VC": {
+        "name": "Vue Cli",
+        "msg": "Thanks for the tools for building this website."
+      },
+      "Vuetify": {
+        "name": "Vuetify",
+        "msg": "Thanks for the tools for building this website."
+      }
+    },
+
+    "Issues": "Issues",
+    "ifFind": "If you found that there are",
+    "Errors": "Errors",
+    "or": "or",
+    "Bugs": "Bugs",
+    "report": "please report it on",
+    "fix": ".I will fix it as quickly as I can. Thanks!"
+  },
+
+  "Settings": {
+    "language": {
+      "title": "Setting Language",
+      "setLanguage": "Set language successfuly"
+    }
+  }
+}

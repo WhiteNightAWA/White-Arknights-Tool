@@ -2,7 +2,7 @@
   <div class="container">
     <img v-if="this.$vuetify.theme.dark" src="@/assets/logo_dark.png" alt="logo" class="center logo">
     <img v-else src="@/assets/logo_light.png" alt="logo" class="logo">
-    <h1>White Arknights Tool <small><sub>V0.1ß</sub></small></h1>
+    <h1> {{ $t("HomePage.title") }} <small><sub>V0.1ß</sub></small></h1>
     <a href="https://github.com/WhiteNightAWA/White-Arknights-Tool" target="_blank">
       <v-btn><i class="fa-brands fa-github" style="font-size: 30px"></i>Github<i
           class="fa-solid fa-arrow-up-right-from-square"></i></v-btn>
@@ -16,21 +16,21 @@
           class="card0"
       >
         <i class="fa-solid fa-circle-question" style="font-size: 50px"></i>
-        <h1>Need Help In Arknights?</h1>
+        <h1>{{ $t("HomePage.needHelp") }}</h1>
         <v-divider class="v-divider"></v-divider>
         <v-row>
           <v-col>
             <router-link to="/RaidersFinder">
               <v-card elevation="9" @mouseover="blur=true" @mouseleave="blur=false" :class="{ blur: blur }">
                 <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
-                <h3>Feeling hard to beat the levels?</h3>
+                <h3>{{ $t("HomePage.beatLevels") }}</h3>
                 <v-divider class="v-divider"></v-divider>
                 <br>
                 <p>
-                  Try
-                  <strong>Raiders Finder</strong>!
+                  {{ $t("HomePage.try") }}
+                  <strong>{{ $t("RF") }}</strong> !
                   <br>
-                  Check who are also using your operators to olve the levels.
+                  {{ $t("HomePage.howToSolve") }}
                 </p>
               </v-card>
             </router-link>
@@ -45,9 +45,7 @@
                     color="primary"
                     indeterminate
                 ></v-progress-circular>
-                <h3>More Function is developing...</h3>
-                <!--                <v-divider class="v-divider"></v-divider>-->
-
+                <h3>{{ $t("HomePage.developing") }}</h3>
               </v-card>
             </router-link>
           </v-col>
@@ -61,20 +59,18 @@
       <v-row>
         <v-col>
           <v-card class="cards2-1 theme">
-            <h2>Help
-              <del>Us</del>
-              ME!
+            <h2><i class="fa-solid fa-handshake-angle"></i>
+              {{ $t("HomePage.help") }}<del>{{ $t("HomePage.us") }}</del>{{ $t("HomePage.me") }}!
             </h2>
-            <p>It's just me developing this page! So if you want to help me or you know anything can let these tools
-              better,
-              please create an
+            <p>
+              {{ $t("HomePage.plzCr") }}
               <a
                   href="https://github.com/WhiteNightAWA/White-Arknights-Tool/pulls" target="_blank">
-                <v-btn color="primary" style="padding: 0 8px;"><i class="fa-solid fa-code-pull-request"></i> pull requests <i
+                <v-btn color="primary" style="padding: 0 8px;"><i class="fa-solid fa-code-pull-request"></i> Pull Requests <i
                     class="fa-solid fa-arrow-up-right-from-square"></i></v-btn>
               </a>
 
-              or contact me on Discord
+              {{ $t("HomePage.contDC") }}
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <span
@@ -87,94 +83,27 @@
 
                   </span>
                 </template>
-                <span>Copy ID</span>
+                <span>{{ $t("HomePage.copyID") }}</span>
               </v-tooltip>
 
 
               .
               <br>
-              <small><sup>*there will be no money reward, but I will add you in the special thanks list</sup></small>
+              <small><sup>*{{ $t("HomePage.tip") }}</sup></small>
             </p>
           </v-card>
         </v-col>
         <v-col>
           <v-card class="green">
-            <h1>LICENSE</h1>
-            <p>This Project is using <code>MIT license</code>.</p>
-            <div class="text-center;" style="height: auto">
-              <v-dialog
-                  v-model="dialog1"
-                  max-width="75%"
-                  scrollable
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                      color="primary"
-                      dark
-                      v-bind="attrs"
-                      v-on="on"
-                  >
-                    Show me
+            <h1><i class="fa-solid fa-scale-balanced"></i><br>{{ $t("HomePage.l") }}</h1>
+            <p>{{ $t("HomePage.using") }}<code>CC BY-NC-SA 4.0</code>.</p>
+            <div class="text-center;" style="height: auto; padding: 0;">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <v-btn color="primary">
+                    {{ $t("HomePage.show") }}
+                    <i class="fa-solid fa-up-right-from-square"></i>
                   </v-btn>
-                </template>
-
-                <v-card>
-                  <v-card-title style="">
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MIT_logo.svg/440px-MIT_logo.svg.png"
-                        alt="mit icon">
-                  </v-card-title>
-
-                  <v-divider></v-divider>
-                  <br>
-                  <v-card-text style="max-height: 50%">
-                    <codeBox>
-                      MIT License
-                      <br>
-                      Copyright (c) 2022 WhiteNightAWA
-                      <br>
-                      Permission is hereby granted, free of charge, to any person obtaining a copy
-                      of this software and associated documentation files (the "Software"), to deal
-                      in the Software without restriction, including without limitation the rights
-                      to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-                      copies of the Software, and to permit persons to whom the Software is
-                      furnished to do so, subject to the following conditions:
-                      <br>
-                      The above copyright notice and this permission notice shall be included in all
-                      copies or substantial portions of the Software.
-                      <br>
-                      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-                      IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-                      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-                      AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-                      LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-                      OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-                      SOFTWARE.
-                    </codeBox>
-                  </v-card-text>
-
-                  <v-divider></v-divider>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-
-                    <v-btn color="primary">
-                      <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank" class="white--text">
-                        <i class="fa-brands fa-wikipedia-w"></i>
-                        Learn More in Wiki
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-                      </a>
-
-                    </v-btn>
-
-                    <v-btn color="green white--text" @click="dialog1 = false">
-                      <i class="fa-solid fa-check"></i>
-                      Okay
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
+              </a>
             </div>
           </v-card>
         </v-col>
@@ -183,8 +112,8 @@
       <v-row>
         <v-col>
           <v-card class="light-pink">
-            <h1><i class="fa-solid fa-heart red--text"></i>Special Thanks</h1>
-            <small>Thank you very much!</small>
+            <h1><i class="fa-solid fa-heart red--text"></i>{{ $t("HomePage.ST") }}</h1>
+            <small>{{ $t("HomePage.thanks") }}</small>
             <v-divider light/>
             <div class="chips">
 
@@ -217,19 +146,26 @@
         </v-col>
         <v-col>
           <v-card class="warning_background">
-            <h1>Issues</h1>
+            <h1>
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <br>{{ $t("HomePage.Issues") }}</h1>
             <br>
             <p>
-              If you found that there are
-              <strong style="text-shadow: 0 0 10px red; color: red">Errors</strong>
-              or
-              <strong style="text-shadow: 0 0 10px red; color: red">Bugs</strong>, please report it on
+              {{ $t("HomePage.ifFind") }}
+              <strong style="text-shadow: 0 0 10px red; color: red">
+                {{ $t("HomePage.Errors") }}
+              </strong>
+              {{ $t("HomePage.or") }}
+              <strong style="text-shadow: 0 0 10px red; color: red">
+                {{ $t("HomePage.Bugs") }}
+              </strong>,
+              {{ $t("HomePage.report") }}
               <a
                   href="https://github.com/WhiteNightAWA/White-Arknights-Tool/issues" target="_blank">
                 <v-btn color="primary"  style="padding: 0 8px;"><i class="fa-regular fa-circle-dot"></i> GitHub Issues <i
                     class="fa-solid fa-arrow-up-right-from-square"></i></v-btn>
               </a>
-              . I will fix it as quickly as I can. Thanks!
+              {{ $t("HomePage.fix") }}
             </p>
           </v-card>
         </v-col>
@@ -244,13 +180,12 @@
         timeout="2000"
         color="green"
     >
-      Copied: <code>White_Night_awa#1729</code>
+      {{ $t("Copied") }}: <code>White_Night_awa#1729</code>
     </v-snackbar>
   </div>
 </template>
 
 <script>
-import codeBox from "@/components/Others/codeBox";
 
 export default {
   name: "HomePage",
@@ -265,33 +200,33 @@ export default {
       blur: false,
       sts: [
         {
-          name: "Penguin Stats",
+          name: this.$t("HomePage.thanksList.PS.name"),
           icon: "https://penguin-stats.s3.amazonaws.com/logos/penguin_stats_logo.png",
-          msg: "Thanks for your website give me inspiration to design te UI.",
+          msg: this.$t("HomePage.thanksList.PS.msg"),
           url: "https://penguin-stats.io/"
         },
         {
-          name: "Arknights Toolbox",
+          name: this.$t("HomePage.thanksList.AT.name"),
           icon: "https://cdn.jsdelivr.net/gh/arkntools/arknights-toolbox@gh-pages/favicon.ico",
-          url: "https://arkn.lolicon.app/",
-          msg: "Thanks for your website give me inspiration to design te UI."
+          msg: this.$t("HomePage.thanksList.AT.msg"),
+          url: "https://arkn.lolicon.app/"
         },
         {
-          name: "PRTS",
+          name: this.$t("HomePage.thanksList.PRTS.name"),
           icon: "https://prts.wiki/ioslogo.png",
-          msg: "Thanks for the information of the Operators.",
+          msg: this.$t("HomePage.thanksList.PRTS.msg"),
           url: "http://prts.wiki/"
         },
         {
-          name: "Vue Cli",
+          name: this.$t("HomePage.thanksList.VC.name"),
           icon: "https://cli.vuejs.org/favicon.png",
-          msg: "Thanks for the tools for building this website.",
+          msg: this.$t("HomePage.thanksList.VC.msg"),
           url: "https://cli.vuejs.org/"
         },
         {
-          name: "Vuetify",
+          name: this.$t("HomePage.thanksList.Vuetify.name"),
           icon: "https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-dark.svg",
-          msg: "Thanks for the tools for building this website.",
+          msg: this.$t("HomePage.thanksList.Vuetify.msg"),
           url: "https://vuetifyjs.com/"
         }
       ],
@@ -300,7 +235,6 @@ export default {
     }
   },
   components: {
-    codeBox,
   }
 }
 </script>

@@ -10,20 +10,27 @@
         </SideBar>
 
     </v-main>
+     <languageSetting :dialog="languageDialog" :change.sync="languageDialog" />
   </v-app>
 </template>
 
 <script>
 import SideBar from '@/components/SideBar/SideBar.vue'
+import languageSetting from "@/components/Setting/languageSetting";
 
 export default {
   name: 'App',
 
-  data: () => ({
-
-  }),
+  data () {
+    return {
+      languageDialog: window.localStorage.getItem("language") === null,
+    }
+  },
   components: {
-    SideBar
+    SideBar,
+    languageSetting
+  },
+  computed: {
   }
 }
 </script>
