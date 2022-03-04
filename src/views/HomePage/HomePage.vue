@@ -77,7 +77,7 @@
                       v-bind="attrs"
                       v-on="on"
                   >
-                    <a @click="snackbar1 = true; navigator.clipboard.writeText('White_Night_awa#1729');">
+                    <a @click="snackbar1 = true; copy('White_Night_awa#1729')">
                 <i class="fa-solid fa-copy"></i>
               </a>
 
@@ -193,6 +193,9 @@ export default {
     test: function () {
       console.log(this.$vuetify.theme.dark)
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+    copy(text){
+      navigator.clipboard.writeText(text);
     }
   },
   data() {

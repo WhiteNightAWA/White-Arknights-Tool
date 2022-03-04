@@ -9,17 +9,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'Sidebar.Home',
     component: HomePage,
     icon: "mdi-home",
   }, {
     path: "/RaidersFinder",
-    name: "Raiders Finder",
+    name: "Sidebar.RF",
     component: RaidersFinderPage,
     icon: "mdi-magnify"
   }, {
     path: "/settings",
-    name: "Setting",
+    name: "Sidebar.Settings",
     component: SettingsPage,
     icon: "mdi-cog",
   }

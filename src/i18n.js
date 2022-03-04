@@ -13,7 +13,10 @@ function loadLocaleMessages () {
       console.log(locales(key))
       const locale = matched[1]
       messages[locale] = locales(key)
-      langList[locale] = locales(key)["name"]
+      langList[locale] = {
+        name: locales(key)["name"],
+        icon: locales(key)["icon"]
+      }
     }
   })
   console.log(messages, langList)

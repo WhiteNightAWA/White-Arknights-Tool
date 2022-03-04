@@ -40,7 +40,7 @@
               <v-list-item-icon>
                 <v-icon>{{ i.icon }}</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>{{ i.name }}</v-list-item-title>
+              <v-list-item-title>{{ $t(i.name) }}</v-list-item-title>
             </v-list-item>
 
             </router-link>

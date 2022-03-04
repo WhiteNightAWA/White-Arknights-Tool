@@ -1,6 +1,13 @@
 {
   "name": "English",
+  "icon": "us",
+  "id": "en",
 
+  "Sidebar": {
+    "Home": "Home",
+    "RF": "Raiders Finder",
+    "Settings": "Settings"
+  },
 
   "RF": "Raiders Finder",
   "Copied": "Copied",
@@ -60,9 +67,13 @@
   },
 
   "Settings": {
+    "title": "Settings",
+    "current": "Current",
+    "change": "Change",
     "language": {
       "title": "Setting Language",
-      "setLanguage": "Set language successfuly"
+      "name": "Language",
+      "setLanguage": "Set language successfully"
     }
   }
 }
