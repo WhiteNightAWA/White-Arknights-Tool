@@ -74,6 +74,10 @@
       "title": "Setting Language",
       "name": "Language",
       "setLanguage": "Set language successfully"
+    },
+    "color": {
+      "name": "Color Appearance",
+      "auto": "Follow System"
     }
   }
 }

@@ -13,6 +13,7 @@
      <v-container style="padding: 0">
        <v-dialog
            v-model="languageDialog"
+           :persistent="disabledButton"
        >
          <v-alert
              color="red"
@@ -25,8 +26,9 @@
              v-else-if="firstTime"
              >{{ $t("Settings.language.setLanguage") }}</v-alert>
          <v-card class="text-center justify-center" style="padding: 1em; ">
-           <h1 style="display: flex; flex-direction: column; width: auto">
+           <h1 >
              <i class="fa-solid fa-language" style="font-size: 2em"></i>
+             <br>
               {{ $t("Settings.language.title") }}
            </h1>
 
@@ -77,10 +79,9 @@ export default {
     return {
       lang: this.$i18n.locale,
       langList: langList,
-      languageDialog: window.localStorage.getItem("language")===null,
+      languageDialog: window.localStorage.getItem("first")!=="false",
       disabledButton: window.localStorage.getItem("language")===null,
-      firstTime: window.localStorage.getItem("language")===null
-
+      firstTime: window.localStorage.getItem("language")===null,
     }
   },
   components: {
@@ -92,6 +93,7 @@ export default {
     changeLang(l){
       this.$i18n.locale = l;
       window.localStorage.setItem("language", l)
+      window.localStorage.setItem("first", "false")
       this.disabledButton = false;
     }
   },
@@ -100,6 +102,11 @@ export default {
       this.disabledButton = false;
       this.languageDialog = true;
     })
+  },
+  created() {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+         this.$vuetify.theme.dark = e.matches
+      });
   }
 }
 </script>
