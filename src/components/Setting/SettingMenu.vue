@@ -1,19 +1,20 @@
 <template>
     <v-card style="height: 100%; width: 100%; text-align: center;" elevation="10">
-      <h1><v-icon style="font-size: 2em">mdi-cog</v-icon>
+      <h1><v-icon style="font-size: 2em" class="settingsIcon">mdi-cog</v-icon>
         <br>{{ $t("Settings.title") }}</h1>
       <v-divider/>
       <v-simple-table>
         <template v-slot:default>
           <thead>
+
           <tr>
-            <th class="text-center">
+            <th class="text-center" style="font-size: 1em">
               <h2>{{ $t("Settings.title") }}</h2>
             </th>
-            <th class="text-center">
+            <th class="text-center" style="font-size: 1em">
               <h2>{{ $t("Settings.current") }}</h2>
             </th>
-            <th class="text-center">
+            <th class="text-center" style="font-size: 1em">
               <h2>{{ $t("Settings.change") }}</h2>
             </th>
           </tr>
@@ -120,4 +121,14 @@ div.darkControl div.v-input__slot {
   justify-content: center;
 
 }
+.settingsIcon {
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
 </style>

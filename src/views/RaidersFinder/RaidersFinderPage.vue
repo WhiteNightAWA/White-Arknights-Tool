@@ -1,12 +1,17 @@
 <template>
 <div>
-  <h1>Hello</h1>
+  <RaidersFinder/>
 </div>
 </template>
 
 <script>
+import RaidersFinder from "@/components/RaidersFinder/RaidersFinder";
+
 export default {
-  name: "RaidersFinderPage"
+  name: "RaidersFinderPage",
+  components: {
+    RaidersFinder
+  }
 }
 </script>
 

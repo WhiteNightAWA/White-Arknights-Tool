@@ -66,6 +66,357 @@
     "fix": ".I will fix it as quickly as I can. Thanks!"
   },
 
+  "RFP": {
+    "map": {
+      "main": {
+        "name": "Main",
+        "cals": {
+          "0": "HOUR OF AN AWAKENING",
+          "1": "SHATTER OF A VISION",
+          "2": "SHADOW OF A DYING SUN "
+        },
+        "chs": {
+          "0": {
+            "name": "Episode 0 - EVIL TIME Part.1",
+            "lev": {
+              "main": {
+                "1": {
+                  "id": "0-1",
+                  "name": "Collapse",
+                  "desc": "The enemy's vanguard has appeared to your three o'clock. Deploy melee Operators to stop them.",
+                  "challenge": "The enemy's vanguard has appeared to your three o'clock. Deploy melee Operators to stop them."
+                },
+                "2": {
+                  "id": "0-2",
+                  "name": "Protection",
+                  "desc": "The enemy has sent more troops. Please make sure you have at least 1 Medic Operator in the squad for healing.",
+                  "challenge": "The ATK of all allied units is halved."
+                },
+                "3": {
+                  "id": "0-3",
+                  "name": "Pursuit",
+                  "desc": "Enemy unmanned drones have entered the battlefield. Please deploy your Sniper Operators to deal with them.",
+                  "challenge": "The HP of enemy units is increased significantly."
+                },
+                "4": {
+                  "id": "0-4",
+                  "name": "Brawl",
+                  "desc": "More enemy drones have entered the battlefield. Please make sure your Sniper Operators are in a position to deal with them.",
+                  "challenge": "Sniper Operators cannot be deployed."
+                },
+                "5": {
+                  "id": "0-5",
+                  "name": "Corruption",
+                  "desc": "Enemy hounds are extremely fast and can easily slip through our defenses early on. Please deploy a Vanguard Operator to stop them.",
+                  "challenge": "The ATK of enemy units is increased significantly."
+                },
+                "6": {
+                  "id": "0-6",
+                  "name": "Assault",
+                  "desc": "The path at the bottom of the battlefield has been opened. Please deploy multiple Vanguard Operators to stop the hounds.",
+                  "challenge": "Deployment Points recover at half the normal rate."
+                },
+                "7": {
+                  "id": "0-7",
+                  "name": "Infection",
+                  "desc": "Enemy units equipped with shields have high physical defense. Please deploy Caster Operators to defeat them.",
+                  "challenge": "The cost of Caster Operators is tripled."
+                },
+                "8": {
+                  "id": "0-8",
+                  "name": "Hunting",
+                  "desc": "Swarms of Originium Slugs are approaching from 9 o'clock. It's recommended to deploy AoE Caster Operators.",
+                  "challenge": "The max HP of all ally units is halved."
+                },
+                "9": {
+                  "id": "0-9",
+                  "name": "Nearl",
+                  "desc": "More enemy Originium Slugs and shielded soldiers have arrived on the battlefield. Use a combination of Defender Operators and AoE Caster Operators to suppress them.",
+                  "challenge": "Defender Operators cannot be deployed."
+                },
+                "10": {
+                  "id": "0-10",
+                  "name": "Dilemma",
+                  "desc": "Enemy Junkmen have high HP and ATK. Please deploy Defender Operators to block them, and deploy high-damage Operators to defeat them.",
+                  "challenge": "The DEF of all ally units is halved."
+                },
+                "11": {
+                  "id": "0-11",
+                  "name": "Blockade Running",
+                  "desc": "Mixed enemy troops are coming from the west. Please make good use of the tactics you just learned, and assemble a suitable squad to deal with them.",
+                  "challenge": "The cost of all melee Operators is tripled."
+                }
+              }
+            }
+          },
+          "1": {
+            "name": "Episode 1 - EVIL TIME Part.2",
+            "lev": {
+              "main": {
+                "1": {
+                  "id": "1-1",
+                  "name": "Isolated Island",
+                  "desc": "The battlefield is narrower than before, and the enemies have gotten stronger. Please make sure your Operators have been upgraded before entering the battlefield.",
+                  "challenge": "The deployment limit is reduced to 4."
+                },
+                "2": {
+                  "id": "1-2",
+                  "name": "Sprawl",
+                  "desc": "At the same time, members of the Op Reserve Team have run into new enemies on their way to help... Please pay attention to the surprise attack from the north.",
+                  "extra": {
+                    "Fixed Squad": "Unable to edit the squad"
+                  }
+                },
+                "3": {
+                  "id": "1-3",
+                  "name": "Running Wild",
+                  "desc": "This battlefield is wider and enemies will attack from two paths. Please note that enemies coming from the southern path have higher defense. Think carefully about where to deploy your Operators.",
+                  "challenge": "The HP of enemy units is increased significantly."
+                },
+                "4": {
+                  "id": "1-4",
+                  "name": "Omen",
+                  "desc": "The battlefield is even wider this time. You will need at least 3 melee Operators to block all the enemies.",
+                  "challenge": "The cost of all ranged Operators is tripled."
+                },
+                "5": {
+                  "id": "1-5",
+                  "name": "Paralysis",
+                  "desc": "This battle takes place on Chernobog's main street. Please have at least 4 melee Operators in the squad to block all the enemies.",
+                  "challenge": "The Speed of enemy units is increased significantly."
+                },
+                "6": {
+                  "id": "1-6",
+                  "name": "Catastrophe",
+                  "desc": "Roadblocks help us control enemy movements when they approach from multiple directions. Please deploy Roadblocks to control the flow of battle.",
+                  "extra": {
+                    "Roadblock": "Deploy to block a tile on the map. Enemies will attack it if no path is available."
+                  },
+                  "challenge": "The number of available Roadblocks is reduced to 1."
+                },
+                "7": {
+                  "id": "1-7",
+                  "name": "The Tyrant",
+                  "desc": "Please combine your Operators' firepower with the Stun Generator on the battlefield to stop the enemy attack.",
+                  "extra": {
+                    "Stun Generator": "Pay a cost to activate it, damaging and stunning nearby enemies."
+                  },
+                  "challenge": "Deployment Points recover at half the normal rate."
+                },
+                "8": {
+                  "id": "1-8",
+                  "name": "Resolve",
+                  "desc": "Be careful of the large number of approaching enemies, but keep an eye on the agile Reunion leader. The Stun Generator can stop her movement for a short time.",
+                  "extra": {
+                    "Stun Generator": "Pay a cost to activate it, damaging and stunning nearby enemies."
+                  },
+                  "challenge": "The CD time of the enemy leader's ability is reduced significantly."
+                },
+                "9": {
+                  "id": "1-9",
+                  "name": "Rout",
+                  "desc": "Enemies won't slow down their attack even during a Catastrophe. Please pay attention to enemy ranged units and protect your own ranged Operators.",
+                  "challenge": "Defender Operators cannot be deployed."
+                },
+                "10": {
+                  "id": "1-10",
+                  "name": "Remnants",
+                  "desc": "We are not far from the outskirts of Chernobog. Hang in there and victory will be ours. Please pay attention to enemy ranged units and protect your own ranged Operators.",
+                  "challenge": "Enemy ranged units have significantly increased range."
+                },
+                "11": {
+                  "id": "1-11",
+                  "name": "The Forgotten",
+                  "desc": "At the same time, Op Reserve Team members have run into W, one of the enemy's leaders, on their way to help... Observe W's movements carefully while defending against the enemy attack.",
+                  "extra": {
+                    "Fixed Squad": "Unable to edit the squad"
+                  }
+                },
+                "12": {
+                  "id": "1-12",
+                  "name": "Pyrrhic Victory",
+                  "desc": "W's troops have launched their attack from Chernobog's labyrinthine streets. Make good use of the environment.",
+                  "extra": {
+                    "Stun Generator": "Pay a cost to activate it, damaging and stunning nearby enemies."
+                  },
+                  "challenge": "The cost of Medic Operators is doubled."
+                }
+              }
+            }
+          },
+          "2": {
+            "name": "Episode 2 - Separated Hearts",
+            "lev": {
+              "main": {
+                "1": {
+                  "id": "2-1",
+                  "name": "To Lungmen",
+                  "desc": "The paths on the battlefield are tortuous. Consider using Supporter Operators to suppress the enemy's elite units.",
+                  "challenge": "Caster Operators cannot be deployed."
+                },
+                "2": {
+                  "id": "2-2",
+                  "name": "War of Words",
+                  "desc": "More enemies with high defense have appeared in the center of the battlefield. Supporter and Caster Operators can reduce their combat power significantly.",
+                  "challenge": "Supporter Operators cannot be deployed."
+                },
+                "3": {
+                  "id": "2-3",
+                  "name": "Presumption of Innocence",
+                  "desc": "Enemies are coming from too many directions this time, complicating your deployment. Use Roadblocks to control the enemy's advance.",
+                  "extra": {
+                    "Roadblock": "Deploy it to block the enemy's advance"
+                  },
+                  "challenge": "The cost of Roadblocks and melee Operators is doubled."
+                },
+                "4": {
+                  "id": "2-4",
+                  "name": "Penguin Logistics",
+                  "desc": "Enemy Elite Casters confirmed. This type of enemy can pose a huge threat to your Operators. Scatter them.",
+                  "challenge": "The HP of enemy units is increased significantly."
+                },
+                "5": {
+                  "id": "2-5",
+                  "name": "Falling Objects",
+                  "desc": "Massive deployment of enemy Elite Casters confirmed. Protocol advises destroying them one by one.",
+                  "challenge": "The cost of Guard and Sniper Operators is doubled."
+                },
+                "6": {
+                  "id": "2-6",
+                  "name": "Hold on Tight",
+                  "desc": "The roof is wide enough to deploy a variety of formations. Still, watch out for surprise attacks...",
+                  "challenge": "Caster Operators cannot be deployed."
+                },
+                "7": {
+                  "id": "2-7",
+                  "name": "A Matter of Public Health",
+                  "desc": "Enemy's new aerial units have been confirmed on your 1 o'clock and 7 o'clock. Please exercise caution.",
+                  "challenge": "The range of enemy's ranged units is increased significantly."
+                },
+                "8": {
+                  "id": "2-8",
+                  "name": "No Promises",
+                  "desc": "Some vantage points on the roof are ideal for sniping the enemy's aerial units. Also, the roof is not surrounded by railings. Can we use that to our advantage...?",
+                  "extra": {
+                    "Anti-Air Rune": "Operators deployed on it will attack a bit more slowly but their ATK against aerial units will be increased significantly"
+                  },
+                  "challenge": "The weight of enemy units is increased significantly."
+                },
+                "9": {
+                  "id": "2-9",
+                  "name": "Cubiculum Obscurum",
+                  "desc": "The battlefield is narrow this time. Please make sure you have enough melee Operators to stop enemies.",
+                  "extra": {
+                    "Anti-Air Rune": "Operators deployed on it will attack a bit more slowly but their ATK against aerial units will be increased significantly"
+                  },
+                  "challenge": "The HP of enemy units is increased significantly."
+                },
+                "10": {
+                  "id": "2-10",
+                  "name": "Beyond Cure",
+                  "desc": "Skullshatterer attacks with her troops! This complicated battlefield will be a test of your skills.",
+                  "extra": {
+                    "Medical Rune": "Operators deployed on it are healed over time."
+                  },
+                  "challenge": "The cost of Caster Operators is doubled."
+                }
+              },
+              "S": {
+                "1": {
+                  "id": "S2-1",
+                  "name": "Slow-1",
+                  "desc": "Please pay attention to the enemy's shielded soldiers, who have high defense."
+                },
+                "2": {
+                  "id": "S2-2",
+                  "name": "Slow-2",
+                  "desc": "Please pay attention to the aerial units to the north and south."
+                },
+                "3": {
+                  "id": "S2-3",
+                  "name": "Blockade-1",
+                  "desc": "Deploy Roadblocks in the right places to stop enemies advancing from two directions.",
+                  "extra": {
+                    "Roadblock": "Deploy it to block the enemy's advance"
+                  }
+                },
+                "4": {
+                  "id": "S2-4",
+                  "name": "Blockade-2",
+                  "desc": "The battlefield is even more complicated now. Think carefully before deploying the Roadblocks.",
+                  "extra": {
+                    "Roadblock": "Deploy it to block the enemy's advance"
+                  }
+                },
+                "5": {
+                  "id": "S2-5",
+                  "name": "Caster-1",
+                  "desc": "The enemy's Elite Casters have scattered. Protocol advises taking them out one by one with Sniper Operators."
+                },
+                "6": {
+                  "id": "S2-6",
+                  "name": "Caster-2",
+                  "desc": "The enemy's Elite Casters remain the biggest threat. Scatter your Operators to reduce damage taken."
+                },
+                "7": {
+                  "id": "S2-7",
+                  "name": "Caster-3",
+                  "desc": "The enemy has sent even more Elite Casters. Scatter the Operators as previous."
+                },
+                "8": {
+                  "id": "S2-8",
+                  "name": "Trap-1",
+                  "desc": "The roof is not surrounded by railings. Make good use of that and things will be much easier."
+                },
+                "9": {
+                  "id": "S2-9",
+                  "name": "Trap-2",
+                  "desc": "Enemies have become stronger. Using the terrain is still the key to victory."
+                },
+                "10": {
+                  "id": "S2-10",
+                  "name": "Suffocation-1",
+                  "desc": "Please pay attention to the surprise attack from the south."
+                },
+                "11": {
+                  "id": "S2-11",
+                  "name": "Suffocation-2",
+                  "desc": "The battlefield is completely divided again. Try to defend against enemies from both directions."
+                },
+                "12": {
+                  "id": "S2-12",
+                  "name": "Suffocation-3",
+                  "desc": "Please pay attention to the surprise attack launched by enemy aerial units from the east and west."
+                }
+              }
+            }
+          },
+          "3": {
+            "name": "Episode 3 - Stinging Shock"
+          },
+          "4": {
+            "name": "Episode 4 - Burning Run"
+          },
+          "5": {
+            "name": "Episode 5 - Necessary Solutions"
+          },
+          "6": {
+            "name": "Episode 6 - Partial Necrosis"
+          },
+          "7": {
+            "name": "Episode 7 - The Birth of Tragedy"
+          },
+          "8": {
+            "name": "Episode 8 - Roaring Flare"
+          },
+          "9": {
+            "name": "Episode 9 - Stormwatch"
+          }
+        }
+      }
+    }
+  },
+
   "Settings": {
     "title": "Settings",
     "current": "Current",

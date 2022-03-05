@@ -72,6 +72,7 @@
 import SideBar from '@/components/SideBar/SideBar.vue'
 import { langList } from "@/i18n.js"
 
+
 export default {
   name: 'App',
 
