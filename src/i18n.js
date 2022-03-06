@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
-export const langList = {};
+export const langList = [];
 
 function loadLocaleMessages () {
   const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
@@ -13,10 +13,13 @@ function loadLocaleMessages () {
       console.log(locales(key))
       const locale = matched[1]
       messages[locale] = locales(key)
-      langList[locale] = {
-        name: locales(key)["name"],
-        icon: locales(key)["icon"]
-      }
+      langList.push(
+          {
+            name: locales(key)["name"],
+            icon: locales(key)["icon"],
+            id: locales(key)["id"]
+          }
+      )
     }
   })
   console.log(messages, langList)

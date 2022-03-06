@@ -3,10 +3,35 @@
   "icon": "tw",
   "id": "zh",
 
+  "developing": "此頁面仍在開發中",
+
   "Sidebar": {
     "Home": "主頁",
     "RF": "攻略查找器",
     "Settings": "設定"
+  },
+
+  "setup": {
+    "title": "準備開始",
+    "step1": {
+      "title": "設定語言"
+    },
+    "step2": {
+      "title": "選擇伺服器"
+    },
+    "step3": {
+      "title": "獲取數據",
+      "desc": "獲取數據{server}的數據 (~4MB)"
+    },
+    "next": "NEXT",
+    "done": "DONE",
+    "servers": {
+      "en_US": "歐美服",
+      "ja_JP": "日服",
+      "ko_KR": "韓服",
+      "zh_CN": "國服",
+      "zh_TW": "台服"
+    }
   },
 
   "RF": "攻略查找器",
@@ -78,6 +103,9 @@
     "color": {
       "name": "顏色外觀",
       "auto": "跟隨系統"
+    },
+    "server": {
+
     }
   }
 }

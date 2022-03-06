@@ -5,6 +5,7 @@
       <v-divider/>
       <v-simple-table>
         <template v-slot:default>
+
           <thead>
 
           <tr>
@@ -26,22 +27,34 @@
               {{ $t("name") }} ({{ getNowLang }})
             </td>
             <td>
-              <v-btn @click="openLangMenu" color="primary" small>
-                {{ $t("Settings.change") }}
-              </v-btn>
+              <v-select
+                  class="changeLang"
+                  @change="changeLang(selectLang.id)"
+                  v-model="selectLang"
+                  :items="langList"
+                  item-text="name"
+                  prepend-icon="mdi-translate"
+                  item-value="id"
+                  menu-props="auto"
+                  label="Select"
+                  persistent-hint
+                  return-object
+                  single-line
+              ></v-select>
             </td>
           </tr>
           <tr>
             <td>{{ $t("Settings.color.name") }}</td>
             <td>
               <v-icon v-if="autoDark" style="font-size: 40px">mdi-brightness-auto</v-icon>
-              <i style="font-size: 40px" class="fa-solid fa-moon" v-else-if="$vuetify.theme.dark" />
-              <i style="font-size: 40px" class="fa-solid fa-sun" v-else></i>
+              <v-icon style="font-size: 40px" v-else-if="$vuetify.theme.dark">mdi-weather-night</v-icon>
+              <v-icon style="font-size: 40px" v-else>mdi-white-balance-sunny</v-icon>
             </td>
-            <td style="display: flex; justify-content: center; align-items: center;">
-              <div class="text-center align-center justify-space-around">
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
+            <td>
+              <div style="display: flex; justify-content: center">
+                <div>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
                     <span
                         v-bind="attrs"
                         v-on="on"
@@ -49,29 +62,80 @@
                         v-model="autoDark"
                         @click="changeAutoDark"
                     /></span>
-                  </template>
-                  <span>{{ $t("Settings.color.auto") }}</span>
-                </v-tooltip>
+                    </template>
+                    <span>{{ $t("Settings.color.auto") }}</span>
+                  </v-tooltip>
+                </div>
+                <v-switch
+                    :disabled="autoDark"
+                    v-model="$vuetify.theme.dark"
+                    inset
+                    persistent-hint
+                    class="darkControl"
+                    color="dark "
+                    @change="changeDarkTheme"
+                ></v-switch>
               </div>
 
-              <v-switch
-                  :disabled="autoDark"
-                  v-model="$vuetify.theme.dark"
-                  inset
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ $t("Settings.server.name") }}
+            </td>
+            <td>
+              {{ $t(`setup.servers.${selectServer.id}`) }}
+            </td>
+            <td>
+              <v-select
+                  @change="changeServer(selectServer); upDateData=true"
+                  v-model="selectServer"
+                  :items="servers"
+                  prepend-icon="mdi-server"
+                  item-text="name"
+                  item-value="id"
+                  menu-props="auto"
+                  label="Select"
                   persistent-hint
-                  class="darkControl"
-                  color="dark "
-                  @change="changeDarkTheme"
-              ></v-switch>
+                  return-object
+                  single-line
+              ></v-select>
             </td>
           </tr>
           </tbody>
         </template>
       </v-simple-table>
+      <v-dialog v-model="upDateData" persistent>
+        <v-card
+            class="text-center"
+            style="padding: 60px;"
+        >
+          <h1>{{ $t("Settings.server.update") }}</h1>
+          <br>
+          <h3>{{ $t("setup.step3.desc", {server: $t(`setup.servers.${selectServer.id}`)}) }}</h3>
+          <br>
+          <v-btn v-if="finishDownload" color="success" @click="upDateData=false; finishDownload=false; loading=false">
+            <v-icon
+                    >mdi-check</v-icon>
+          </v-btn>
+
+          <v-btn v-else-if="!loading" @click="loadData(selectServer)">
+            <v-icon>mdi-play</v-icon>
+          </v-btn>
+          <v-progress-linear
+              :active="loading"
+              :indeterminate="loading"
+              v-else
+          ></v-progress-linear>
+        </v-card>
+      </v-dialog>
     </v-card>
+
 </template>
 
 <script>
+import { langList } from "@/i18n.js"
+import $ from "jquery";
 
 
 export default {
@@ -80,13 +144,26 @@ export default {
     return {
       test: this.$i18n.locale,
       autoDark: window.localStorage.getItem("autoDark")==="true",
-      darkTheme: this.$vuetify.theme.dark
+      darkTheme: this.$vuetify.theme.dark,
+      langList: langList,
+      selectLang: {
+        id: window.localStorage.getItem("language"),
+        name: window.localStorage.getItem("langName")
+      },
+      selectServer: JSON.parse(window.localStorage.getItem("server")),
+      upDateData: false,
+      loading: false,
+      finishDownload: false
     }
   },
   components: {
 
   },
   methods: {
+    resetUpdate: function() {
+      this.loading = false
+      this.finishDownload = false
+    },
     openLangMenu (){
       this.$root.$emit("openLang")
     },
@@ -100,6 +177,44 @@ export default {
     },
     changeDarkTheme() {
       window.localStorage.setItem("darkTheme", this.$vuetify.theme.dark.toString())
+    },
+    changeLang(l){
+      this.$i18n.locale = l;
+      window.localStorage.setItem("language", l)
+    },
+    changeServer(s){
+      window.localStorage.setItem("server", JSON.stringify(s))
+    },
+    loadData (selectServer) {
+      this.loading = true
+      const urls = {
+        "zone_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/zone_table.json`,
+        "stage_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/stage_table.json`,
+        "chapter_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/chapter_table.json`
+      }
+      let now = 1;
+      setTimeout(()=> {
+        Object.keys(urls).forEach(k => {
+          $.ajax({
+            url: urls[k],
+            async: false,
+            dataType: 'json',
+            success: function (json) {
+              window.localStorage.setItem(k, JSON.stringify(json));
+              console.log(json)
+            }
+          });
+          this.loadingValue = now / Object.keys(urls).length
+
+          now++
+
+        })
+        this.loadingValue = 100
+        this.loading = false
+        this.finishDownload = true
+      }, 2000)
+
+
     }
   },
   computed: {
@@ -108,7 +223,21 @@ export default {
     },
     getDarkTheme () {
       return this.$vuetify.theme.dark
-    }
+    },
+    getNowServer () {
+      return JSON.parse(window.localStorage.getItem("server")).name
+    },
+    servers: function () {
+      let servers = ["en_US", "ja_JP", "ko_KR", "zh_CN", "zh_TW"]
+      let Servers = []
+      servers.forEach(s => {
+        Servers.push({
+          id: s,
+          name: this.$t(`setup.servers.${s}`)
+        })
+      })
+      return Servers
+    },
   },
   props: {
   }
@@ -131,4 +260,9 @@ div.darkControl div.v-input__slot {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+
+
+tr>td {
+  width: 20%;
+}
 </style>
