@@ -119,7 +119,7 @@
 
               <v-tooltip bottom
                          v-for="p in sts"
-                         :key="p">
+                         :key="p.url">
                 <template v-slot:activator="{ on, attrs }">
                   <a :href="p.url" target="_blank" style="cursor: pointer !important;">
                     <v-chip

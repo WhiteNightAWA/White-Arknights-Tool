@@ -21,7 +21,7 @@
     },
     "step3": {
       "title": "獲取數據",
-      "desc": "獲取數據{server}的數據 (~4MB)"
+      "desc": "獲取數據{server}的數據"
     },
     "next": "NEXT",
     "done": "DONE",
@@ -105,7 +105,23 @@
       "auto": "跟隨系統"
     },
     "server": {
-
+      "name": "伺服器",
+      "update": "更新伺服器數據"
+    },
+    "data": {
+      "name": "數據",
+      "manage": "管理數據",
+      "localStorage": "本地存儲",
+      "caches": "快取",
+      "areUSure": "你確定要刪除",
+      "cannotUndo": "這個不能撤銷",
+      "total": "總計",
+      "cancel": "取消",
+      "delete": "刪除",
+      "deleteAll": "全部刪除",
+      "back": "返回",
+      "sure": "當然",
+      "typeDelete": "輸入\"Delete\"繼續"
     }
   }
 }

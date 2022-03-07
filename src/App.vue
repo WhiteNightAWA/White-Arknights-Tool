@@ -122,11 +122,14 @@
                   </v-btn>
                   <v-progress-linear
                       :active="loading"
-                      :indeterminate="loading"
                       :value="loadingValue"
                       rounded
                       v-else
+                      :indeterminate="indexing"
                   ></v-progress-linear>
+                  <br>
+                  <p v-if="loading">Loading: <code>{{ nowLoading }}</code> </p>
+
 
                 </v-card>
                 <v-btn
@@ -163,7 +166,9 @@ export default {
       downloaded: null,
       loading: false,
       finishDownload: false,
-      loadingValue: 0
+      loadingValue: 0,
+      nowLoading: "..."
+
 
     }
   },
@@ -190,6 +195,9 @@ export default {
         return this.selectServer.name
       }
       return null
+    },
+    indexing: function() {
+      return this.loadingValue === 100
     }
   },
   methods: {
@@ -204,16 +212,18 @@ export default {
     doneSetup () {
       this.$store.commit("doneSetup")
     },
-    loadData (selectServer) {
+    loadData: function (selectServer) {
+      this.loadingValue = 0
       this.loading = true
       const urls = {
-           "zone_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/zone_table.json`,
-          "stage_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/stage_table.json`,
+        "zone_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/zone_table.json`,
+        "stage_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/stage_table.json`,
         "chapter_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/chapter_table.json`
       }
       let now = 1;
-      setTimeout(()=> {
-        Object.keys(urls).forEach(k => {
+      setTimeout(async ()=> {
+        for (const k of Object.keys(urls)) {
+          this.nowLoading = k.replace("_", " ")
           $.ajax({
             url: urls[k],
             async: false,
@@ -223,18 +233,20 @@ export default {
               console.log(json)
             }
           });
-          this.loadingValue = now / Object.keys(urls).length
+          this.loadingValue = (now / (Object.keys(urls).length+1))*100
 
           now++
-
-        })
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
         this.loadingValue = 100
+        this.nowLoading = "Importing..."
+        await new Promise(resolve => setTimeout(resolve, 3000));
+
         this.loading = false
         this.finishDownload = true
-      }, 2000)
 
-
-    }
+      })
+    },
   },
   mounted() {
     this.$root.$on("openLang", ()=> {
@@ -253,22 +265,6 @@ export default {
       this.$vuetify.theme.dark = window.matchMedia("(prefers-color-scheme: dark)").matches
     } else this.$vuetify.theme.dark = window.localStorage.getItem("darkTheme") === "true";
 
-    // if (this.downloadingData){
-    //
-    //   setTimeout(() => {
-    //     $.ajax({
-    //       url: "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/excel/stage_table.json",
-    //       async: false,
-    //       dataType: 'json',
-    //       success: function (json) {
-    //         window.localStorage.setItem("stage_table", JSON.stringify(json));
-    //         console.log(json)
-    //       }
-    //     });
-    //
-    //     this.downloadingData = false
-    //   }, 5000)
-    // }
   }
 }
 </script>

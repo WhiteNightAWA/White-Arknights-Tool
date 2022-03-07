@@ -15,7 +15,7 @@
     },
     "step3": {
       "title": "Get Data",
-      "desc": "Get Data of {server} Server (~4MB)"
+      "desc": "Get Data of {server} Server"
     },
     "step4": {
       "title": "Done"
@@ -135,6 +135,21 @@
     "server": {
       "name": "Server",
       "update": "Update Server Data"
+    },
+    "data": {
+      "name": "Data",
+      "manage": "Manage Data",
+      "localStorage": "Local Storage",
+      "caches": "Caches",
+      "areUSure": "Are you sure to delete ",
+      "cannotUndo": "This action cannot be undo",
+      "total": "Total",
+      "cancel": "cancel",
+      "delete": "delete",
+      "deleteAll": "delete all",
+      "back": "Back",
+      "sure": "Sure",
+      "typeDelete": "Type \"DELETE\" to continue"
     }
   }
 }
