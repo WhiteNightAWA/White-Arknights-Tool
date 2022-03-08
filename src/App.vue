@@ -211,6 +211,7 @@ export default {
     },
     doneSetup () {
       this.$store.commit("doneSetup")
+      this.$store.commit("reloadData")
     },
     loadData: function (selectServer) {
       this.loadingValue = 0

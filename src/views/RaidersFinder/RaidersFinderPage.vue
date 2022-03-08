@@ -5,10 +5,7 @@
   >
     {{ $t("developing") }}
   </v-alert>
-  <v-card disabled style="height: 100%;">
-    <RaidersFinder/>
-
-  </v-card>
+  <RaidersFinder/>
 </div>
 </template>
 

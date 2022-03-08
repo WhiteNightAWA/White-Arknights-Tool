@@ -95,28 +95,21 @@
   },
 
   "RFP": {
-    "map": {
-      "main": {
-        "name": "Main",
-        "cals": {
-          "0": "HOUR OF AN AWAKENING",
-          "1": "SHATTER OF A VISION",
-          "2": "SHADOW OF A DYING SUN "
-        },
-        "chs": {
-          "0": "Episode 0 - EVIL TIME Part.1",
-          "1": "Episode 1 - EVIL TIME Part.2",
-          "2": "Episode 2 - Separated Hearts",
-          "3": "Episode 3 - Stinging Shock",
-          "4": "Episode 4 - Burning Run",
-          "5": "Episode 5 - Necessary Solutions",
-          "6": "Episode 6 - Partial Necrosis",
-          "7": "Episode 7 - The Birth of Tragedy",
-          "8": "Episode 8 - Roaring Flare",
-          "9": "Episode 9 - Stormwatch"
-        }
-      }
+    "stage": {
+      "name": "stage",
+      "main": "Main Story",
+      "side": "Side Story",
+      "showChallenge":  "Show Challenge Mode",
+      "showStory": "Show Story Stage",
+      "dangerLevel": "Recommended Operator Lv."
+    },
+    "video": {
+      "name": "video"
+    },
+    "operators": {
+      "name": "operators"
     }
+
   },
 
   "Settings": {

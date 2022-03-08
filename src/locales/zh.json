@@ -91,6 +91,24 @@
     "fix": "報告它。我會盡快修復它。謝謝！"
   },
 
+  "RFP": {
+    "stage": {
+      "name": "關卡",
+      "main": "主線",
+      "side": "主線",
+      "showChallenge":  "顯示突襲模式",
+      "showStory": "顯示戲情關卡",
+      "dangerLevel": "建議幹員等級"
+    },
+    "video": {
+      "name": "影片"
+    },
+    "operators": {
+      "name": "幹員"
+    }
+
+  },
+
   "Settings": {
     "title": "設定",
     "current": "當前",

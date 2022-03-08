@@ -1,272 +1,343 @@
 <template>
-  <div class="full">
+  <div class="full pa-8 fill-height">
     <div class="top">
-      <v-row justify="center">
-        <v-expansion-panels style="text-align: center;">
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              <h1>FILTERS</h1>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-divider/>
-              <br>
-                <v-tabs
-                    v-model="mapTab"
-                    fixed-tabs
-                >
-                  <v-tabs-slider color="secondary"></v-tabs-slider>
+      <v-expansion-panels popout>
+        <v-expansion-panel>
+          <v-expansion-panel-header class="text-center">
+            <h1>Filters</h1>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-tabs fixed-tabs v-model="tabs">
+              <v-tabs-slider></v-tabs-slider>
+              <v-tab key="stage">
+                {{ $t("RFP.stage.name") }}
+              </v-tab>
+              <v-tab key="video">
+                {{ $t("RFP.video.name") }}
+              </v-tab>
+              <v-tab key="operators">
+                {{ $t("RFP.operators.name") }}
+              </v-tab>
+            </v-tabs>
+            <v-divider/>
+            <v-tabs-items v-model="tabs">
+              <v-tab-item key="stage">
+                <v-row color="primary">
+                  <v-col class="pa-8" cols="8" id="stageSelector">
+                    <v-btn-toggle v-model="stage" style="width: 100%">
+                      <v-expansion-panels accordion>
 
-                  <v-tab
-                      v-for="item in items"
-                      :key="item"
-                  >
-                    {{ item }}
-                  </v-tab>
-                </v-tabs>
-              <v-tabs-items v-model="mapTab">
-                <v-tab-item key="MAP">
-                  <v-card flat style="display: flex;flex-direction: row;" class="mapDisplay" :disabled="mapLoading">
-                    <v-card class="mapSelect" style="width: 75%">
-                      <v-btn-toggle
-                          v-model="level"
-                          color="primary"
-                          group
-                          :Rounded="false"
-                          @change="getMapData(getLevel)"
-                          style="width: 100%"
-                      >
-                      <v-expansion-panels style="width: 100%">
-                        <v-expansion-panel
-                          v-for="mode in maps"
-                          :key="mode.key"
-                          style="width: 100%"
-                          >
+                        <v-row class="justify-end">
+                          <v-tooltip top>
+                            <template v-slot:activator="{ on, attrs }">
+                              <span
+                                  v-bind="attrs"
+                                  v-on="on"
+                              >
+                                <v-switch
+                                    v-model="showChallenge"
+                                    color="red"
+                                />
+                              </span>
+                            </template>
+                            <span style="">{{ $t("RFP.stage.showChallenge") }}</span>
+                          </v-tooltip>                          <v-tooltip top>
+                          <template v-slot:activator="{ on, attrs }">
+                              <span
+                                  v-bind="attrs"
+                                  v-on="on"
+                              >
+                                <v-switch
+                                    v-model="showStory"
+                                />
+                              </span>
+                          </template>
+                          <span style="">{{ $t("RFP.stage.showStory") }}</span>
+                        </v-tooltip>
+                        </v-row>
+                        <v-expansion-panel>
                           <v-expansion-panel-header>
-                            {{ $t(`RFP.map.${mode.name}.name`) }}
+                            <h4>{{ $t("RFP.stage.main") }}</h4>
                           </v-expansion-panel-header>
                           <v-divider/>
                           <v-expansion-panel-content>
-                            <v-tabs vertical v-model="mapCal">
-                              <v-tab
-                                v-for="cal in Object.keys(mode.data)"
-                                :key="cal"
-                                style="font-size: 10px"
-                              >
-                                {{ $t(`RFP.map.${mode.name}.cals.${cal}`) }}
+                            <v-row>
+                              <v-col cols="4">
+                                <v-tabs vertical v-model="mainTabs" class="mainTabs">
+                                  <v-tab
+                                      v-for="chapter in chapter_table"
+                                      :key="chapter['chapter_id']"
+                                      :id="chapter['chapter_id']"
+                                  >
+                                      {{ chapter["chapterName"] }}
+                                  </v-tab>
+                                </v-tabs>
+                              </v-col>
+                              <v-col cols="8" >
+                                <v-expansion-panels accordion>
 
-                              </v-tab>
-                              <v-tabs-items v-model="mapCal">
-                                <v-tab-item
-                                    v-for="cal in Object.keys(mode.data)"
-                                    :key="cal"
-                                    v
-                                >
-                                  <v-expansion-panels accordion>
-                                    <v-expansion-panel
-                                      v-for="ch in Object.keys(mode.data[cal].data)"
-                                      :key="ch"
+                                  <v-tabs-items vertical v-model="mainTabs"
+                                                style="width: 100%"
+                                  >
+                                    <v-tab-item
+                                        v-for="chapter in chapter_table"
+                                        :key="chapter['chapter_id']"
+                                        :id="chapter['chapter_id']"
+                                    >
+                                      <v-expansion-panel
+                                        v-for="zone in getList(zone_table['mainlineAdditionInfo'], chapter['startZoneId'], chapter['endZoneId'])"
+                                        :key="zone['zoneId']"
                                       >
                                         <v-expansion-panel-header>
-                                          {{ $t(`RFP.map.${mode.name}.chs.${ch}.name`) }}
+                                          {{ zone_table['zones'][zone['zoneId']]["zoneNameFirst"] }} - {{ zone_table['zones'][zone['zoneId']]["zoneNameSecond"] }}
                                         </v-expansion-panel-header>
-                                        <v-expansion-panel-content>
-                                          <div
-                                              v-for="levelMode in Object.keys(mode.data[cal].data[ch])"
-                                              :key="levelMode"
+                                        <v-expansion-panel-content class="inSideButtonList">
+                                          <span
+                                              v-for="stage in getList(stage_table['stages'], zone['startStageId'], zone['endStageId'], zone_table['zones'][zone['zoneId']]['zoneNameTitleCurrent'])"
+                                              :key="stage['stageId']"
                                           >
-<!--                                            {{ mapLangData }}-->
-                                            <v-btn
-                                              v-for="lev in range(1, mode.data[cal].data[ch][levelMode])"
-                                              :key="lev"
-                                              :value="mode.name+'-'+levelMode+'-'+ch+'-'+lev"
-                                              small
-                                              style="text-align: center; margin: 5px"
-                                              @click="mapLangData = `RFP.map.${mode.name}.chs.${ch}.lev.${levelMode}.${lev}`"
-                                              >
+                                               <v-btn
+                                                   v-if="shouldShow(stage)"
+                                                   small
+                                                   style="margin: 0.5em"
+                                                   class="stageButton"
+                                                   :class="{ predefined: stage['isPredefined'], hilight: stage['hilightMark'], challenge: stage['stageId'].endsWith('#f#'), subStage: stage['stageId'].startsWith('sub_') , hardState: stage['stageId'].startsWith('hard_') }"
+                                                   :value="stage"
+                                               >
+                                                   {{ stage.code }}
 
-                                              {{ $t(`RFP.map.${mode.name}.chs.${ch}.lev.${levelMode}.${lev}.id`) }}
+                                              <img style="width: 5em; position: absolute; opacity: 0.4;" src="@/assets/bossMark_white.png" alt="bossMark" v-if="stage['bossMark']">
+                                              <img style="width: 5em; position: absolute; opacity: 0.4;" src="@/assets/openBook_white.png" alt="openBook" v-if="stage['stageId'].startsWith('tr')">
+                                              <img style="width: 4em; position: absolute; opacity: 0.4;" src="@/assets/story.png" alt="story" v-if="stage['isStoryOnly']">
+                                              <img style="width: 5em; position: absolute; opacity: 0.4;" src="@/assets/originiums.png" alt="story" v-if="stage['stageId'].startsWith('hard_')">
 
                                             </v-btn>
-                                          </div>
-                                        </v-expansion-panel-content>
-                                    </v-expansion-panel>
-                                  </v-expansion-panels>
 
-                                </v-tab-item>
-                              </v-tabs-items>
-                            </v-tabs>
+                                          </span>
+                                        </v-expansion-panel-content>
+                                        <v-divider/>
+                                      </v-expansion-panel>
+                                    </v-tab-item>
+                                  </v-tabs-items>
+                                </v-expansion-panels>
+                              </v-col>
+                            </v-row>
+
                           </v-expansion-panel-content>
                         </v-expansion-panel>
+                        <v-expansion-panel>
+                          <v-expansion-panel-header>
+                            {{ $t("RFP.stage.side") }}
+                          </v-expansion-panel-header>
+                          <v-expansion-panel-content>
 
+                          </v-expansion-panel-content>
+                        </v-expansion-panel>
                       </v-expansion-panels>
-                      </v-btn-toggle>
-                      {{ getLevel }}
-                      {{ level }}
-                    </v-card>
-                    <v-card class="levelInfo" style="width: 25%; align-items: center; justify-content: center;" elevation="8">
-                        <div v-if="level===''">
-                          <h1 class="noSelect" >No <br> Level <br> Selected</h1>
-                        </div>
-                        <div v-else-if="level===undefined">
-                          <h1 class="noSelect" >No <br> Level <br> Selected</h1>
-                        </div>
-                        <div v-else-if="mapLoading">
-                          <v-progress-circular
-                              :size="70"
-                              :width="7"
-                              color="primary"
-                              indeterminate
-                          ></v-progress-circular>
+                    </v-btn-toggle>
+                  </v-col>
+                  <v-col class="pa-8" cols="4">
+                    <v-card
+                        color="secondary"
+                        class="pa-8 text-center justify-center align-center"
+                        v-if="typeof(stage) === 'object'"
+                    >
+                      <div>
+                        <h1>{{ stage.code }}</h1>
+                        <h2>{{ stage.name }}</h2>
+                        <p
+                            style="font-size: 0.75em; white-space: pre-line;"
+                            class="text--secondary mb-0"
+                            v-for="line in removeUseLess(stage.description.toString()).split('\\n')"
+                            :key="line"
+                        >
+                          {{ line }}
+                        </p>
 
-                        </div>
-                        <div v-else style="height: 100%; width: 100%; text-align: center">
-                          <h1>{{ $t(mapLangData+".id") }}</h1>
-                          <h3>{{ $t(mapLangData+".name") }}</h3>
-                          <small class="text--secondary">{{ $t(mapLangData+".desc") }}</small>
-                          <v-simple-table>
-                            <template v-slot:default>
-                              <tbody>
+
+                        <img style="width: 3em; top:0;right: 0; position: absolute; opacity: 0.4;" src="@/assets/bossMark_white.png" alt="openBook" v-if="stage['bossMark']">
+                        <img style="width: 3em; top:0;right: 0; position: absolute; opacity: 0.4;" src="@/assets/openBook_white.png" alt="openBook" v-if="stage['stageId'].startsWith('tr')">
+                        <img style="width: 3em; top:0;right: 0; position: absolute; opacity: 0.4;" src="@/assets/story.png" alt="story" v-if="stage['isStoryOnly']">
+                        <img style="width: 3em; top:0;right: 0; position: absolute; opacity: 0.4;" src="@/assets/originiums.png" alt="story" v-if="stage['stageId'].startsWith('hard_')">
+                        <v-divider/>
+                        <v-simple-table dense>
+                          <template v-slot:default>
+                            <tbody>
                               <tr>
                                 <td>
-                                  xd
+                                  {{ $t("RFP.stage.dangerLevel") }}
                                 </td>
                                 <td>
-                                  xd
+                                  {{ stage["dangerLevel"] }}
                                 </td>
                               </tr>
-                              <tr>
-                                <td>
-                                  xd
-                                </td>
-                                <td>
-                                  xd
-                                </td>
-                              </tr>
-                              </tbody>
-                            </template>
-                          </v-simple-table>
-                        </div>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </div>
+
                     </v-card>
-                  </v-card>
-                </v-tab-item>
-              </v-tabs-items>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-row>
+                    <v-card color="secondary" class="pa-8 text-center justify-center align-center" v-else>
+                      <div>
+                        <h1>No</h1>
+                        <h1>Stage</h1>
+                        <h1>Selected</h1>
+                      </div>
+
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+              <v-tab-item key="video">
+                video
+              </v-tab-item>
+              <v-tab-item key="operators">
+                operators
+              </v-tab-item>
+            </v-tabs-items>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </div>
     <div class="results">
-
+      {{ stage }}
     </div>
   </div>
 </template>
 
 <script>
-import maps from "../../../data/map.json"
-import subFixData from "../../../data/subFixData.json"
-import $ from 'jquery'
 
 export default {
   name: "RaidersFinder",
   data(){
     return {
-      mapTab: null,
-      items: [
-        "MAP", "VIDEO", "OPERATORS"
-      ],
-      maps: maps,
-      level: "",
-      mapData: null,
-      mapLoading: false,
-      mapCal: null,
-      mapLangData: null
+      tabs: null,
+      stage: "",
+      mainTabs: null,
+      showChallenge: false,
+      showStory: false,
+      showInfo: []
     }
   },
   methods: {
-    range: function (start, end) {
-  return Array(end - start + 1).fill().map((_, idx) => start + idx)
-},
-
-    getMapData: function (info){
-      this.mapLoading = true
-
-      let getData = {}
-
-      console.log(info)
-
-      if (info.length >= 5) {
-        info[3] = info[3]+"-"+info[4]
-      }
-
-      let url = `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/obt/${info[0]}/level_${info[1]}_${info[2]}-${info[3]}.json`
-
-
-      setTimeout(() => {
-        $.ajax({
-          url: url,
-          async: false,
-          dataType: 'json',
-          success: function (json) {
-            getData = json;
+    removeUseLess: function (text){
+      text = text.toString().replace("</>", " ")
+      let lf = false
+      let ad = false
+      let c = 0
+      let texts = ""
+      Array.from(text).forEach(t => {
+        if (t === "<" || lf){
+          lf = true
+          if (t === "@" || ad){
+            ad = true
+            if (t === ">") {
+              lf = false
+              ad = false
+              c = 0
+            }
+          } else if (c === 1){
+            texts += t
+            c = 0
+            lf = false
+            ad = true
           }
-        });
+          c++
 
-        this.mapData = getData
+        } else {
+          texts += t
+        }
 
-        this.mapLoading = false
-      }, 2000);
+      })
+      return texts
+    },
+    shouldShow: function (stage) {
+      let ret = true
+      if (!this.showChallenge && stage["stageId"].toString().endsWith("#f#")) {
+        ret = false
+      }
+      if (!this.showStory && stage["isStoryOnly"]) {
+        ret = false
+      }
+      return ret
+    },
+    getList: function (dict, _from, _to, addSub="-") {
+      let retList = []
+      let start = false
+      let end = true
 
+      Object.keys(dict).forEach(k => {
+        if ((k === _from || start) && end) {
+          start = true
+          retList.push(dict[k])
+          if (k === _to) {
+            end = false
+          }
+        } else if (k.startsWith("sub_"+addSub) || k.startsWith("hard_"+addSub)) {
+          retList.push(dict[k])
+        }
+
+      })
+
+      return retList
     }
   },
   computed: {
-    getLevel: function() {
-      console.log(this.level)
-      if (this.level !== undefined) {
-        let l = this.level.toString().split("-")
-        console.log(l)
-        let ret = []
-        l.forEach(i => {
-          console.log(ret)
-          if (i === "S") {
-            ret.push("sub")
-          } else if (i === "H") {
-            ret = ["hard", "hard"]
-          } else if (i.length <= 1) {
-            ret.push("0" + i)
-          } else {
-            ret.push(i)
-          }
-
-        })
-        if (ret[1] === "sub") {
-          if (ret[2] !== "02") {
-            ret = ["main", "sub"].concat(subFixData[(ret[2]+"-"+ret[3])])
-          }
-
-        }
-        return ret
-      } else {
-        return ''
-      }
-    }
+    zones: function () {
+      return this.getList(this.zone_table.zones, "main_0", "main_1")
+    },
+    chapter_table: function(){
+      return this.$store.state.chapter_table
+    },
+    zone_table: function () {
+      return this.$store.state.zone_table
+    },
+    stage_table: function () {
+      return this.$store.state.stage_table
+    },
   }
+
 }
 </script>
 
 <style>
-div.full {
-  width: 100%;
-  height: 100%;
-  padding: 5em
+div.mainTabs .v-tabs-bar__content *{
 }
-div.mapDisplay>div {
-  margin: 1em;
+.predefined {
+  background-color: black !important;
 }
-h1.noSelect {
-  margin: 0;
+.predefined span {
+  color: white;
 }
-div.levelInfo {
+.hilight {
+  background-color: red !important;
+}
+.hilight span {
+  color: white;
+}
+.challenge {
+  background-color: darkred !important;
+}
+.challenge span {
+  color: white;
+}
+.subStage {
+  background-color: slategray !important;
+}
+.stageButton.v-btn--active {
+  filter: brightness(1.5);
+}
+.inSideButtonList .v-expansion-panel-content__wrap {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hardState {
+  background: repeating-linear-gradient(-45deg, darkred, darkred 5px, rgba(46, 46, 46, 0) 0, rgba(46, 46, 46, 0) 10px) !important
+}
+.bossMarkBG {
+  background-size: contain;
+  background: url("/Users/easytang2014/WebstormProjects/White-Arknights-Tool/src/assets/bossMark_white.png") no-repeat center center;
+
 }
 </style>

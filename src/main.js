@@ -13,15 +13,19 @@ const store = new Vuex.Store({
   state: {
     count: 0,
     done: window.localStorage.getItem("done")==="true",
-    mapData: JSON.parse(window.localStorage.getItem("stage_table"))
+    stage_table: JSON.parse(window.localStorage.getItem("stage_table")),
+    zone_table: JSON.parse(window.localStorage.getItem("zone_table")),
+    chapter_table: JSON.parse(window.localStorage.getItem("chapter_table"))
   },
   mutations: {
     doneSetup (state) {
       state.done = true
       window.localStorage.setItem("done", "true")
     },
-    reloadMapData (state) {
-      state.mapData =  JSON.parse(window.localStorage.getItem("stage_table"))
+    reloadData (state) {
+      state.stage_table = JSON.parse(window.localStorage.getItem("stage_table"))
+      state.zone_table = JSON.parse(window.localStorage.getItem("zone_table"))
+      state.chapter_table = JSON.parse(window.localStorage.getItem("chapter_table"))
     }
   }
 })

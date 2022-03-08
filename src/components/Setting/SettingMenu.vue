@@ -108,7 +108,9 @@
           <td>
             {{ $t("Settings.data.name") }}
           </td>
-          <td></td>
+          <td>
+            {{ totalData }} KB
+          </td>
           <td>
             <v-btn color="primary" @click="mangeData=true">
               {{ $t("Settings.data.manage") }}
@@ -130,7 +132,7 @@
         <br>
         <h3>{{ $t("setup.step3.desc", {server: $t(`setup.servers.${selectServer.id}`)}) }}</h3>
         <br>
-        <v-btn v-if="finishDownload" color="success" @click="upDateData=false; finishDownload=false; loading=false">
+        <v-btn v-if="finishDownload" color="success" @click="reload">
           <v-icon>mdi-check</v-icon>
         </v-btn>
 
@@ -279,6 +281,12 @@ export default {
   },
   components: {},
   methods: {
+    reload: function () {
+      this.upDateData = false;
+      this.finishDownload = false;
+      this.loading = false;
+      window.location.reload()
+    },
     async deleteLocalStorage(){
       window.localStorage.clear()
     },
@@ -365,26 +373,10 @@ export default {
 
         this.loading = false
         this.finishDownload = true
+        this.$store.commit("reloadData")
 
       })
     },
-    checkNowStorage: function (kind) {
-      let storage = eval(kind);
-      let storages = {}
-      let _lsTotal = 0,
-          _xLen, _x;
-      for (_x in storage) {
-        if (!Object.prototype.hasOwnProperty.call(storage, _x)) {
-          continue;
-        }
-        _xLen = ((storage[_x].length + _x.length) * 2);
-        _lsTotal += _xLen;
-        storages[_x.substr(0, 50)] = (_xLen / 1024).toFixed(2)
-      }
-      storages["total"] = (_lsTotal / 1024).toFixed(2)
-
-      return storages
-    }
   },
   computed: {
     totalData: function () {
@@ -396,12 +388,26 @@ export default {
       return total
     },
     totalStorage: function () {
-      let retList = {}
-      let l = ["localStorage", "caches"]
-      l.forEach(k => {
-        retList[k] = this.checkNowStorage(k)
-      })
-      return retList
+     function checkNowStorage (kind) {
+        let storages = {}
+        let _lsTotal = 0,
+            _xLen, _x;
+        for (_x in kind) {
+          if (!Object.prototype.hasOwnProperty.call(kind, _x)) {
+            continue;
+          }
+          _xLen = ((kind[_x].length + _x.length) * 2);
+          _lsTotal += _xLen;
+          storages[_x.substr(0, 50)] = (_xLen / 1024).toFixed(2)
+        }
+        storages["total"] = (_lsTotal / 1024).toFixed(2)
+
+        return storages
+      }
+      return {
+        "localStorage": checkNowStorage(localStorage),
+        "caches": checkNowStorage(caches)
+      }
     },
     sureTextCorrect: function(){
       return this.sureText.toUpperCase()!=='DELETE'
