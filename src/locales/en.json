@@ -101,7 +101,20 @@
       "side": "Side Story",
       "showChallenge":  "Show Challenge Mode",
       "showStory": "Show Story Stage",
-      "dangerLevel": "Recommended Operator Lv."
+      "challenge": "Challenge Mode",
+      "dangerLevel": "Recommended Operator Lv.",
+      "characterLimit": "Character Limit",
+      "maxLifePoint":"HP",
+      "initialCost": "Initial Cost",
+      "maxCost":"Max Cost",
+      "costIncreaseTime": "Cost Increase Time (per s)",
+      "moveMultiplier":"Move Multiplier",
+      "steeringEnabled": "Steering Enabled",
+      "isTrainingLevel":"Is Training Level",
+      "functionDisableMask": "Function Disable Mask",
+      "isHardTrainingLevel": "Is Hard Training Level",
+      "p-s": "Penguin Stats",
+      "map": "PRTS.Map"
     },
     "video": {
       "name": "video"

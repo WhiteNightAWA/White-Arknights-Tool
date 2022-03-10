@@ -98,7 +98,20 @@
       "side": "主線",
       "showChallenge":  "顯示突襲模式",
       "showStory": "顯示戲情關卡",
-      "dangerLevel": "建議幹員等級"
+      "challenge": "突襲",
+      "dangerLevel": "建議幹員等級",
+      "characterLimit": "放置幹員數量限制",
+      "maxLifePoint":"生命值",
+      "initialCost": "初始費用",
+      "maxCost":"最大費用",
+      "costIncreaseTime": "每秒增加費用",
+      "moveMultiplier":"移動乘數",
+      "steeringEnabled": "轉向啟用",
+      "isTrainingLevel":"是否教學關卡",
+      "functionDisableMask": "功能禁用掩碼",
+      "isHardTrainingLevel": "是否困難教學關卡",
+      "p-s": "企鵝物流數據統計",
+      "map": "PRTS.地圖"
     },
     "video": {
       "name": "影片"
