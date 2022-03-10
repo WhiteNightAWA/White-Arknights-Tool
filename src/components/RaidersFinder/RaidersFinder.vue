@@ -3,7 +3,7 @@
     <div class="top">
       <v-expansion-panels popout>
         <v-expansion-panel>
-          <v-expansion-panel-header class="text-center">
+          <v-expansion-panel-header class="text-center" style="flex-direction: column;">
             <h1>Filters</h1>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
@@ -143,6 +143,7 @@
                         v-if="typeof(stage) === 'object'"
                     >
                       <div>
+                        <strong v-if="stage['stageId'].endsWith('#f#')" class="red--text">{{ $t("RFP.stage.challenge") }}</strong>
                         <h1>{{ stage.code }}</h1>
                         <h2>{{ stage.name }}</h2>
                         <p
@@ -163,19 +164,84 @@
                         <v-simple-table dense>
                           <template v-slot:default>
                             <tbody>
-                              <tr>
+                            <tr>
+                              <td>
+                                {{ $t("RFP.stage.dangerLevel") }}
+                              </td>
+                              <td>
+                                {{ stage["dangerLevel"] }}
+                              </td>
+                            </tr>
+                              <tr
+                                v-for="(data, i) in getLevelData['options']"
+                                :key="i"
+                              >
                                 <td>
-                                  {{ $t("RFP.stage.dangerLevel") }}
+                                  {{ $t(`RFP.stage.${i}`) }}
                                 </td>
-                                <td>
-                                  {{ stage["dangerLevel"] }}
-                                </td>
+                                <td>{{ data }}</td>
                               </tr>
                             </tbody>
                           </template>
                         </v-simple-table>
-                      </div>
+                        <v-divider/>
+                        <v-btn :href="'https://penguin-stats.io/result/stage/'+stage['zoneId']+'/'+stage['stageId']" target="_blank" block large style="height: 3em">
+                          <v-icon left>mdi-package-variant</v-icon>
+                            {{ $t("RFP.stage.p-s") }}
+                          <v-icon right>mdi-open-in-new</v-icon>
+                        </v-btn>
+                        <v-btn :href="'https://map.ark-nights.com/map/'+stage['stageId']" target="_blank" block large style="height: 3em">
+                          <v-icon left>mdi-map</v-icon>
+                            {{ $t("RFP.stage.map") }}
+                          <v-icon right>mdi-open-in-new</v-icon>
+                        </v-btn>
+                        <v-menu
+                            open-on-hover
+                            bottom
+                            offset-y
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-card
+                                block
+                                large
+                                class="justify-center text-center align-center"
+                                v-bind="attrs"
+                                v-on="on"
+                                style="height: 3em;  display: flex;"
+                            >
+                              <div>
+                                <v-icon left>mdi-wikipedia</v-icon>
+                                WIKI
+                                <v-icon right>mdi-open-in-new</v-icon>
+                              </div>
+                            </v-card>
+                          </template>
 
+                          <v-list style="font-size: 1em">
+                            <v-list-item>
+                              <v-btn block target="_blank" :href="'https://gamepress.gg/arknights/search?query='+stage['code']">
+                                GamePress (EN)
+                              </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                              <v-btn block target="_blank" :href="'https://arknights.fandom.com/wiki/'+stage['code']">
+                                Fandom (EN)
+                              </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                              <v-btn block target="_blank" :href="'https://wiki.biligame.com/arknights/'+stage['code']">
+                                BiliBili (CN)
+                              </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                              <v-btn block target="_blank" :href="'https://prts.wiki/w/'+stage['code']">
+                                PRTS (CN)
+                              </v-btn>
+                            </v-list-item>
+                          </v-list>
+                        </v-menu>
+
+                      </div>
                     </v-card>
                     <v-card color="secondary" class="pa-8 text-center justify-center align-center" v-else>
                       <div>
@@ -199,13 +265,27 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </div>
+    <v-spacer/>
+    <div style="display: flex; flex-direction: row;" class="align-center">
+      <v-divider/>
+      <h2>Results</h2>
+      <v-divider/>
+    </div>
     <div class="results">
-      {{ stage }}
+      <v-data-table
+          :headers="headers"
+          :items="videos"
+      >
+
+
+      </v-data-table>
     </div>
   </div>
 </template>
 
 <script>
+import $ from "jquery";
+
 
 export default {
   name: "RaidersFinder",
@@ -216,10 +296,28 @@ export default {
       mainTabs: null,
       showChallenge: false,
       showStory: false,
-      showInfo: []
+      showInfo: [],
+      levelData: null,
+      headers: [
+        {text: "ID", value: "id"},
+        {text: "Title", value: "title"}
+      ]
+
     }
   },
   methods: {
+    getYouTubeInfo: function (videoId) {
+      let data = {};
+      $.ajax({
+        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.VUE_APP_APIKEY}`,
+        async: false,
+        dataType: 'json',
+        success: function (json) {
+          data = json.items[0]
+        }
+      })
+      return data
+    },
     removeUseLess: function (text){
       text = text.toString().replace("</>", " ")
       let lf = false
@@ -280,9 +378,45 @@ export default {
       })
 
       return retList
-    }
+    },
   },
   computed: {
+    videos: function () {
+      let vs = []
+      let datas = [
+        {"id": 1, "title": "Testing"},
+        {"id": 2, "title": "nooo"}
+      ]
+      datas.forEach(v => {
+        if (v.id === 1){
+          vs.push(v)
+        }
+      })
+
+      return vs
+    },
+    getLevelData: function () {
+      if (this.stage["levelId"] !== null){
+        let data = {}
+        $.ajax({
+          url: `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${this.getNowServer['id']}/gamedata/levels/${this.stage["levelId"].toString().toLowerCase()}.json`,
+          async: false,
+          dataType: 'json',
+          success: function (json) {
+            data = json
+          }
+        })
+        return data
+      } else {
+        return {
+          "options":{}
+        }
+      }
+
+    },
+    getNowServer() {
+      return JSON.parse(window.localStorage.getItem("server"))
+    },
     zones: function () {
       return this.getList(this.zone_table.zones, "main_0", "main_1")
     },
@@ -335,9 +469,5 @@ div.mainTabs .v-tabs-bar__content *{
 .hardState {
   background: repeating-linear-gradient(-45deg, darkred, darkred 5px, rgba(46, 46, 46, 0) 0, rgba(46, 46, 46, 0) 10px) !important
 }
-.bossMarkBG {
-  background-size: contain;
-  background: url("/Users/easytang2014/WebstormProjects/White-Arknights-Tool/src/assets/bossMark_white.png") no-repeat center center;
 
-}
 </style>
