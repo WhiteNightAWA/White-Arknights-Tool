@@ -250,6 +250,7 @@
 <script>
 import {langList} from "@/i18n.js"
 import $ from "jquery";
+import {pinyin} from "pinyin-pro";
 
 
 export default {
@@ -281,11 +282,12 @@ export default {
   },
   components: {},
   methods: {
-    reload: function () {
+    reload: async function () {
       this.upDateData = false;
       this.finishDownload = false;
       this.loading = false;
-      window.location.reload()
+      await this.$router.push('/');
+      window.location.reload();
     },
     async deleteLocalStorage(){
       window.localStorage.clear()
@@ -347,7 +349,8 @@ export default {
       const urls = {
         "zone_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/zone_table.json`,
         "stage_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/stage_table.json`,
-        "chapter_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/chapter_table.json`
+        "chapter_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/chapter_table.json`,
+        "character_table": `https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/${selectServer.id}/gamedata/excel/character_table.json`
       }
       let now = 1;
       setTimeout(async () => {
@@ -358,6 +361,12 @@ export default {
             async: false,
             dataType: 'json',
             success: function (json) {
+              if (k === "character_table") {
+                Object.keys(json).forEach(c => {
+                  json[c]["pinyinFull"] = pinyin(json[c].name, {toneType: "none", type: "array"}).join("")
+                  json[c]["pinyinHead"] = pinyin(json[c].name, {toneType: "none", pattern: "initial", type: "array"}).join("")
+                })
+              }
               window.localStorage.setItem(k, JSON.stringify(json));
               console.log(json)
             }

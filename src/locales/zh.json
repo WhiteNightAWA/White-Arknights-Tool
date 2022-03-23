@@ -8,7 +8,8 @@
   "Sidebar": {
     "Home": "主頁",
     "RF": "攻略查找器",
-    "Settings": "設定"
+    "Settings": "設定",
+    "Operators": "我的幹員"
   },
 
   "setup": {
@@ -120,6 +121,13 @@
       "name": "幹員"
     }
 
+  },
+
+  "MOP": {
+    "my": "我的幹員",
+    "all": "全部幹員",
+    "search": "按姓名/拼音/拼音首字母/英文稱號搜尋",
+    "avatar": "顯示頭像"
   },
 
   "Settings": {

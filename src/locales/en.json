@@ -34,7 +34,8 @@
   "Sidebar": {
     "Home": "Home",
     "RF": "Raiders Finder",
-    "Settings": "Settings"
+    "Settings": "Settings",
+    "Operators": "My Operators"
   },
 
   "RF": "Raiders Finder",
@@ -123,6 +124,13 @@
       "name": "operators"
     }
 
+  },
+
+  "MOP": {
+    "my": "My Operators",
+    "all": "All Operators",
+    "search": "Search by Name/Pinyin/Appellation",
+    "avatar": "Show avatar"
   },
 
   "Settings": {

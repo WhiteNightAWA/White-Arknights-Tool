@@ -15,7 +15,8 @@ const store = new Vuex.Store({
     done: window.localStorage.getItem("done")==="true",
     stage_table: JSON.parse(window.localStorage.getItem("stage_table")),
     zone_table: JSON.parse(window.localStorage.getItem("zone_table")),
-    chapter_table: JSON.parse(window.localStorage.getItem("chapter_table"))
+    chapter_table: JSON.parse(window.localStorage.getItem("chapter_table")),
+    character_table: JSON.parse(window.localStorage.getItem("character_table"))
   },
   mutations: {
     doneSetup (state) {
@@ -26,6 +27,7 @@ const store = new Vuex.Store({
       state.stage_table = JSON.parse(window.localStorage.getItem("stage_table"))
       state.zone_table = JSON.parse(window.localStorage.getItem("zone_table"))
       state.chapter_table = JSON.parse(window.localStorage.getItem("chapter_table"))
+      state.character_table = JSON.parse(window.localStorage.getItem("character_table"))
     }
   }
 })

@@ -384,8 +384,7 @@ export default {
     videos: function () {
       let vs = []
       let datas = [
-        {"id": 1, "title": "Testing"},
-        {"id": 2, "title": "nooo"}
+
       ]
       datas.forEach(v => {
         if (v.id === 1){
@@ -429,6 +428,7 @@ export default {
     stage_table: function () {
       return this.$store.state.stage_table
     },
+
   }
 
 }
