@@ -295,5 +295,28 @@ div.v-dialog {
   width: auto;
   max-width: 75%;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #333;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: gold;
+  transition: background-color 0.5s;
+  border-bottom-left-radius: 0.4em;
+  border-top-left-radius: 0.4em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: darkgoldenrod;
+}
 </style>
 
