@@ -7,12 +7,7 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-divider/>
-          <v-container>
-            <v-card
-            >
-
-            </v-card>
-          </v-container>
+          <myOperators></myOperators>
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
@@ -90,18 +85,27 @@
     </v-expansion-panels>
     <v-dialog v-model="addDialog" v-if="addDialog">
 
-      <v-card class="pa-5" outlined>
+      <v-card class="pa-5 overflow-hidden" outlined>
 
-        <v-container class="addOpBg" >
+        <v-container class="addOpBg">
           <img class="refLogo" style="width: 10em; opacity: 0.75; position: absolute; left: 30px;" :src="`https://raw.githubusercontent.com/Aceship/AN-EN-Tags/master/img/factions/logo_${selectedOperators['nationId']}.png`" alt="nationLogo">
           <img
               :src="`https://raw.githubusercontent.com/Aceship/AN-EN-Tags/master/img/characters/${selectedOperators['id']}_${getElite}.png`"
               alt="bg"
-              style="width: calc(100% - 40px); position: absolute; opacity: 0.5; z-index: 1; top: -20px;"
+              style="
+              width: calc(100% - 40px);
+              top: 50%;
+              left: 50%;
+              position: absolute;
+              opacity: 0.5;
+              z-index: 1;
+              margin-top: -50%;
+              margin-left: calc(-50% + 20px);
+              "
           >
           <img class="refLogo" style="width: 10em; opacity: 0.75; position: absolute; right: 30px;" :src="require(`@/assets/${selectedOperators['profession']}.png`)" alt="classLogo">
 
-          <v-card style="z-index: 2; background-color: rgba(0,0,0,0);">
+          <v-card style="z-index: 2; background-color: rgba(0,0,0,0);" elevation="0">
             <v-container style="z-index: 2">
               <h1 class="text-center">
                 {{ "★".repeat(selectedOperators["rarity"]+1) }}
@@ -118,60 +122,33 @@
               </div>
             </v-container>
             <v-container v-html="selectedOperators['description'].replaceAll('@ba.kw', 'strong').replaceAll('\\n', '<br/>')" class="pa-2 text-center desc">
-              {{ selectedOperators["description"].replaceAll('@ba.kw', 'strong').replaceAll('\n', '<br/>') }}
+              {{ selectedOperators["description"].replaceAll("@ba.kw", "strong").replaceAll("\n", "<br/>") }}
             </v-container>
-            <v-card style="backdrop-filter: blur(3px); background: rgba(0,0,0,0);" class="ma-4 pa-6 text-center align-center justify-center">
-              <v-row class="justify-center align-center">
-                <v-btn-toggle v-model="elite" @change="level=1" class="ma-4">
-                  <v-btn v-for="e in rarityElite[selectedOperators['rarity']]" :key="e" icon style="width: 6em; height: 6em;">
-                    <img style="width: 5em" :src="require(`@/assets/elite${e}.png`)" alt="elite">
-                  </v-btn>
-                </v-btn-toggle>
-
-              </v-row>
-              <v-row>
-                <v-slider
-                    v-model="level"
-                    class="align-center"
-                    :max="selectedOperators['phases'][elite]['maxLevel']"
-                    :min="1"
-                    hide-details
-                    style="width: 25em"
-                >
-                  <template v-slot:append>
-                    <v-text-field
-                        v-model="level"
-                        type="number"
-                        style="width: 5em; height: 100%;"
-                        label="Level"
-                        class="textF"
-                        :min="1"
-                        :max="selectedOperators['phases'][elite]['maxLevel']"
-                        hide-details
-                        filled
-                    ></v-text-field>
-                  </template>
-                </v-slider>
-              </v-row>
-              {{ level }}
-            </v-card>
-<!--            {{ selectedOperators }}-->
+            <levelChecker :selectedOperators="selectedOperators"/>
           </v-card>
         </v-container>
       </v-card>
     </v-dialog>
-    {{ filterClass }}
   </div>
 </template>
 
 <script>
+import levelChecker from "@/components/MyOperators/levelChecker.vue"
+import myOperators from "@/components/MyOperators/myOperators";
 
 export default {
-  name: "MyOperators",
-  components: {},
+  name: "TheOperators",
+  components: {
+    levelChecker,
+    myOperators
+  },
+  mounted() {
+    this.$root.$on('closeDialog', () => {
+      this.addDialog = false
+    })
+  },
   data() {
     return {
-      rarityElite: [[0], [0], [0,1], [0,1,2], [0,1,2], [0,1,2]],
       rarity: ["zero", "one", "two", "three", "four", "five"],
       filterRarity: [],
       filterName: "",
@@ -180,23 +157,20 @@ export default {
       selectedOperators: null,
       slider: 40,
       filterClass: [],
-      classes: ["PIONEER", "SNIPER", "MEDIC", "CASTER", "WARRIOR", "TANK", "SUPPORT", "SPECIAL"],
-      elite: 0,
-      level: 1,
-      skills: [
-      ]
+      classes: ["PIONEER", "SNIPER", "MEDIC", "CASTER", "WARRIOR", "TANK", "SUPPORT", "SPECIAL"]
     }
   },
   methods: {
     changeSelectedOperator: function (c, data) {
+      this.$store.commit('setElite', {elite: 0})
       data["id"] = c
       this.selectedOperators = data
       this.addDialog = true
-    }
+    },
   },
   computed: {
     getElite: function () {
-      if (this.elite === 2) {
+      if (this.$store.state.elite === 2) {
         return 2
       } else {
         return 1
@@ -256,6 +230,10 @@ div.AO {
 .theme--light img.refLogo {
   -webkit-filter: invert(100%);
   filter: invert(100%);
+}
+
+.v-dialog.v-dialog--active {
+  width: 90%;
 }
 
 .zeroStar {

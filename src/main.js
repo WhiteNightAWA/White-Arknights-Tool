@@ -16,7 +16,9 @@ const store = new Vuex.Store({
     stage_table: JSON.parse(window.localStorage.getItem("stage_table")),
     zone_table: JSON.parse(window.localStorage.getItem("zone_table")),
     chapter_table: JSON.parse(window.localStorage.getItem("chapter_table")),
-    character_table: JSON.parse(window.localStorage.getItem("character_table"))
+    character_table: JSON.parse(window.localStorage.getItem("character_table")),
+    elite: 0,
+    myOperators: JSON.parse(window.localStorage.getItem("myOperators"))
   },
   mutations: {
     doneSetup (state) {
@@ -28,6 +30,22 @@ const store = new Vuex.Store({
       state.zone_table = JSON.parse(window.localStorage.getItem("zone_table"))
       state.chapter_table = JSON.parse(window.localStorage.getItem("chapter_table"))
       state.character_table = JSON.parse(window.localStorage.getItem("character_table"))
+    },
+    setElite (state, payload) {
+      state.elite = payload.elite
+    },
+    addOperators (state, payload) {
+      let get = window.localStorage.getItem("myOperators");
+      if (get === null) {
+        let data = {}
+        data[payload.id] = payload.operator
+        window.localStorage.setItem("myOperators", JSON.stringify(data))
+        this.state.myOperators = (data)
+      } else {
+        get[payload.id] = payload.operator
+        window.localStorage.setItem("myOperators", JSON.stringify(get))
+        this.state.myOperators[payload.id] = payload.operator
+      }
     }
   }
 })

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MyOperators from "@/components/MyOperators/MyOperators.vue";
+import MyOperators from "@/components/MyOperators/TheOperators.vue";
 
 export default {
   name: "OperatorsPage",

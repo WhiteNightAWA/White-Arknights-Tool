@@ -318,5 +318,18 @@ div.v-dialog {
 ::-webkit-scrollbar-thumb:hover {
   background-color: darkgoldenrod;
 }
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  user-select:none;
+  -o-user-select:none;
+
+  -moz-user-drag: none;
+  -webkit-user-drag: none;
+  -ms-user-drag:none;
+  user-drag:none;
+  -o-user-drag:none;
+}
 </style>
 
