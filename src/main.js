@@ -36,16 +36,27 @@ const store = new Vuex.Store({
     },
     addOperators (state, payload) {
       let get = window.localStorage.getItem("myOperators");
+      let data = {}
       if (get === null) {
-        let data = {}
         data[payload.id] = payload.operator
         window.localStorage.setItem("myOperators", JSON.stringify(data))
-        this.state.myOperators = (data)
+        state.myOperators = (data)
       } else {
-        get[payload.id] = payload.operator
-        window.localStorage.setItem("myOperators", JSON.stringify(get))
-        this.state.myOperators[payload.id] = payload.operator
+        data = JSON.parse(get)
+        data[payload.id] = payload.operator
+        window.localStorage.setItem("myOperators", JSON.stringify(data))
+        state.myOperators = data
       }
+    },
+    changeOperators (state, payload) {
+      let data = JSON.parse(window.localStorage.getItem("myOperators"))
+      data[payload.id] = payload.operator
+      window.localStorage.setItem("myOperators", JSON.stringify(data))
+      state.myOperators = data
+    },
+    replaceOperators (state, payload) {
+      window.localStorage.setItem("myOperators", JSON.stringify(payload.data))
+      state.myOperators = payload.data
     }
   }
 })
