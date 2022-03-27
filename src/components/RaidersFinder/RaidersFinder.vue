@@ -69,7 +69,7 @@
 
 <script>
 import stateSelector from "@/components/RaidersFinder/stateSelector";
-import addVideo from "@/components/RaidersFinder/addVideo.vue";
+import addVideo from "@/pages/addVideo.vue";
 
 
 export default {

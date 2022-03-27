@@ -151,8 +151,8 @@
 <script>
 import SideBar from '@/components/SideBar/SideBar.vue'
 import { langList } from "@/i18n.js"
-import $ from "jquery";
 import {pinyin} from "pinyin-pro";
+import axios from "axios";
 
 export default {
   name: 'App',
@@ -227,21 +227,16 @@ export default {
       setTimeout(async ()=> {
         for (const k of Object.keys(urls)) {
           this.nowLoading = k.replace("_", " ")
-          $.ajax({
-            url: urls[k],
-            async: false,
-            dataType: 'json',
-            success: function (json) {
-              if (k === "character_table") {
-                Object.keys(json).forEach(c => {
-                  json[c]["pinyinFull"] = pinyin(json[c].name, {toneType: "none", type: "array"}).join("")
-                  json[c]["pinyinHead"] = pinyin(json[c].name, {toneType: "none", pattern: "initial", type: "array"}).join("")
-                })
-              }
-              window.localStorage.setItem(k, JSON.stringify(json));
-              console.log(json)
+          await axios.get(urls[k]).then(data => {
+            let json = data.data
+            if (k === "character_table") {
+              Object.keys(json).forEach(c => {
+                json[c]["pinyinFull"] = pinyin(json[c].name, {toneType: "none", type: "array"}).join("")
+                json[c]["pinyinHead"] = pinyin(json[c].name, {toneType: "none", pattern: "initial", type: "array"}).join("")
+              })
             }
-          });
+            window.localStorage.setItem(k, JSON.stringify(json));
+          })
           this.loadingValue = (now / (Object.keys(urls).length+1))*100
 
           now++
