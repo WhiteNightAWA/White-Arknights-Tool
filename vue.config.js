@@ -1,4 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
+const Dotenv = require('dotenv-webpack');
+
 module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
@@ -16,6 +18,9 @@ module.exports = defineConfig({
     }
   },
   configureWebpack: {
+    plugins: [
+      new Dotenv()
+    ],
     resolve: {
       fallback: {
         "child_process": false,
