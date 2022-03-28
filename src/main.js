@@ -4,6 +4,8 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import Vuex from 'vuex'
+import axios from "axios";
+import VueAxios from 'vue-axios'
 
 Vue.config.productionTip = false
 
@@ -61,9 +63,9 @@ const store = new Vuex.Store({
   }
 })
 
-console.log(store.state.count)
-
 new Vue({
+  VueAxios,
+  axios,
   router,
   vuetify,
   i18n,

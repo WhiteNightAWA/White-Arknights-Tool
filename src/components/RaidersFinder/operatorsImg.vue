@@ -92,7 +92,7 @@
           </v-card>
         </div>
         <div v-if="c.skillLevel !== '-'">
-          <img v-if="c.skillId !== '?'" :src="require(`@/assets/skillLevel${c.skillLevel === 0 ? 10 : c.skillLevel}.png`)" alt="potentialLevel" style="width: 5em; height: 5em">
+          <img v-if="c.skillLevel !== '?'" :src="require(`@/assets/skillLevel${c.skillLevel === '0' ? 10 : c.skillLevel}.png`)" alt="potentialLevel" style="width: 5em; height: 5em">
           <v-card style="width: 5em; height: 5em;display: flex;" class="justify-center align-center" v-else-if="c.skillId === '?'">
             <h1>?</h1>
           </v-card>
