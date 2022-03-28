@@ -85,15 +85,18 @@
         <v-card style="width: 5em; height: 5em;display: flex;" class="justify-center align-center" v-else>
           <h1>?</h1>
         </v-card>
-        <img v-if="c.skillId !== 0 && c.skillId !== '?'" style="width: 5em; border-radius: 0.25em" :src="`https://raw.githubusercontent.com/Aceship/AN-EN-Tags/master/img/skills/skill_icon_${character['skills'][c.skillId-1]['skillId']}.png`" alt="skillIcon">
-        <v-card style="width: 5em; height: 5em;display: flex;" class="justify-center align-center" v-else-if="c.skillId === '?'">
-          <h1>?</h1>
-        </v-card>
-        <img v-if="c.skillLevel !== 0 && c.skillId !== '?'" :src="require(`@/assets/skillLevel${c.skillLevel === 0 ? 10 : c.skillLevel}.png`)" alt="potentialLevel" style="width: 5em; height: 5em">
-        <v-card style="width: 5em; height: 5em;display: flex;" class="justify-center align-center" v-else-if="c.skillId === '?'">
-          <h1>?</h1>
-        </v-card>
-
+        <div v-if="c.skillId !== '-'">
+          <img v-if="c.skillId !== '?'" style="width: 5em; border-radius: 0.25em" :src="`https://raw.githubusercontent.com/Aceship/AN-EN-Tags/master/img/skills/skill_icon_${character['skills'][c.skillId-1]['skillId']}.png`" alt="skillIcon">
+          <v-card style="width: 5em; height: 5em;display: flex;" class="justify-center align-center" v-else-if="c.skillId === '?'">
+            <h1>?</h1>
+          </v-card>
+        </div>
+        <div v-if="c.skillLevel !== '-'">
+          <img v-if="c.skillId !== '?'" :src="require(`@/assets/skillLevel${c.skillLevel === 0 ? 10 : c.skillLevel}.png`)" alt="potentialLevel" style="width: 5em; height: 5em">
+          <v-card style="width: 5em; height: 5em;display: flex;" class="justify-center align-center" v-else-if="c.skillId === '?'">
+            <h1>?</h1>
+          </v-card>
+        </div>
       </div>
     </v-card>
   </v-tooltip>

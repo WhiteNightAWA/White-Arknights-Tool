@@ -202,6 +202,13 @@
       </v-btn>
       <v-spacer/>
     </v-row>
+    <v-row v-if="err">
+      <v-spacer></v-spacer>
+      <v-alert type="error" dismissible >
+        {{ err }}
+      </v-alert>
+      <v-spacer></v-spacer>
+    </v-row>
   </v-card>
 </template>
 
@@ -228,12 +235,13 @@ export default {
       Videos: [],
       time: [],
       helpOperator: null,
-      author: ""
+      author: "",
+      err: ""
     }
   },
   methods: {
-    getVideos: async function () {
-      let data = await axios.get(process.env.BACKEND_URL)
+    getVideos: async function (stage) {
+      let data = await axios.get(`https://white-arknights-tool-back-end.vercel.app/data/${process.env.VUE_APP_BACKEND_KEY}/${stage}`)
       this.Videos = data["data"]
     },
     addVideo: async function () {
@@ -244,7 +252,11 @@ export default {
         url: this.url,
         time: this.time
       }
-      await axios.post(process.env.BACKEND_URL, data)
+      try {
+        await axios.post(`https://white-arknights-tool-back-end.vercel.app/data/${process.env.VUE_APP_BACKEND_KEY}/`, data)
+      } catch (err) {
+        this.err = err
+      }
 
     },
     remove: function (value) {
