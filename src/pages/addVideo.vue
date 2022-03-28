@@ -205,7 +205,7 @@
     <v-spacer></v-spacer>
     <v-row v-if="err">
       <v-spacer></v-spacer>
-      <v-alert type="error" dismissible >
+      <v-alert type="error">
         {{ err }}
       </v-alert>
       <v-spacer></v-spacer>
