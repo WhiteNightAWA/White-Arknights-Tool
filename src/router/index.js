@@ -4,6 +4,7 @@ import HomePage from '@/views/HomePage/HomePage.vue'
 import SettingsPage from "@/views/SettingsPage/SettingsPage.vue"
 import RaidersFinderPage from "@/views/RaidersFinder/RaidersFinderPage";
 import OperatorsPage from "@/views/OperatorsPage/OperatorsPage";
+import NotFoundPage from "@/pages/NotFoundPage.vue";
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,10 @@ const routes = [
     name: "Sidebar.Settings",
     component: SettingsPage,
     icon: "mdi-cog",
+  }, {
+    path: "*",
+    name: ":404 Page",
+    component: NotFoundPage
   }
 ]
 

@@ -32,13 +32,13 @@
 
     <div class="AO justify-space-around" v-if="!table">
       <div class="cCard"
-           v-for="(data, c) in character_table"
-           :key="c">
+           v-for="data in character_table"
+           :key="data['phases'][0]['characterPrefabKey']">
         <v-card
             outlined
         >
           <img class="refLogo" :src="require(`@/assets/${data['profession']}.png`)" alt="professionLogo" style="width: 2em; position: absolute; right: 0; top: 0;">
-          <v-btn icon rounded style="z-index: 2;" class="v-btn--absolute" @click="changeSelectedOperator(c, data)"><v-icon>mdi-plus</v-icon></v-btn>
+          <v-btn icon rounded style="z-index: 2;" class="v-btn--absolute" @click="changeSelectedOperator(data['phases'][0]['characterPrefabKey'], data)"><v-icon>mdi-plus</v-icon></v-btn>
 
 
           <v-card-title class="pa-3">
@@ -54,7 +54,7 @@
               </v-list-item-content>
               &nbsp;
               <img
-                  :src="`https://cdn.jsdelivr.net/gh/arkntools/arknights-toolbox@gh-pages/assets/img/avatar/${c.replace('char_', '')}.png`"
+                  :src="`https://cdn.jsdelivr.net/gh/arkntools/arknights-toolbox@gh-pages/assets/img/avatar/${data['phases'][0]['characterPrefabKey'].replace('char_', '')}.png`"
                   alt="avatar"
                   class="rounded-lg"
                   v-if="showAvatar"
@@ -69,12 +69,12 @@
         <template v-slot:default>
           <tbody>
             <tr
-              v-for="(data, c) in character_table"
-              :key="c"
+              v-for="data in character_table"
+              :key="data['phases'][0]['characterPrefabKey']"
             >
               <td >
                 <img
-                    :src="`https://cdn.jsdelivr.net/gh/arkntools/arknights-toolbox@gh-pages/assets/img/avatar/${c.replace('char_', '')}.png`"
+                    :src="`https://cdn.jsdelivr.net/gh/arkntools/arknights-toolbox@gh-pages/assets/img/avatar/${data['phases'][0]['characterPrefabKey'].replace('char_', '')}.png`"
                     alt="avatar"
                     class="rounded-lg mt-1"
                     v-if="showAvatar"
@@ -87,7 +87,7 @@
                 <div style="display: flex;" class="justify-center align-center">
                   <v-chip small :class="rarity[data['rarity']]+'Star'">{{ data["rarity"]+1 }}★</v-chip>
 
-                  <img class="refLogo" :src="require(`@/assets/${character_table[c]['profession']}.png`)" alt="professionLogo" style="width: 5em; height: 5em">
+                  <img class="refLogo" :src="require(`@/assets/${data['profession']}.png`)" alt="professionLogo" style="width: 5em; height: 5em">
                   <div style="display: flex; flex-direction: column">
                     <h2>
                       {{ data["name"] }}
@@ -101,7 +101,7 @@
               <td>
                 <div style="display: flex;">
                   <v-spacer></v-spacer>
-                  <v-btn icon rounded style="z-index: 2;" @click="changeSelectedOperator(c, data)"><v-icon>mdi-plus</v-icon></v-btn>
+                  <v-btn icon rounded style="z-index: 2;" @click="changeSelectedOperator(data['phases'][0]['characterPrefabKey'], data)"><v-icon>mdi-plus</v-icon></v-btn>
                 </div>
               </td>
             </tr>
@@ -154,26 +154,21 @@ export default {
   computed: {
     character_table: function () {
       console.log("test")
-      let ct = JSON.parse(JSON.stringify(this.$store.state.character_table));
-      Object.keys(ct).forEach(c => {
-        if (ct[c]["itemObtainApproach"] === null) {
-          delete ct[c];
-        } else if (this.$store.state.myOperators === null ? false :  c in this.$store.state.myOperators) {
-          delete ct[c]
-        } else if (!(this.filterClass.includes(ct[c]["profession"])) && (this.filterClass.length !== 0)) {
-          delete ct[c]
-        } else if (!(this.filterRarity.includes(ct[c]["rarity"])) && (this.filterRarity.length !== 0)) {
-          delete ct[c]
-        } else if (
-            (ct[c].name.toLowerCase().match(this.filterName.toLowerCase()) === null)
-            && (ct[c].appellation.toLowerCase().match(this.filterName.toLowerCase()) === null)
-            && (ct[c].pinyinFull.match(this.filterName.toLowerCase()) === null)
-            && (ct[c].pinyinHead.match(this.filterName.toLowerCase()) === null)
-        ) {
-          delete ct[c]
-        }
+      let ct = Object.values(JSON.parse(JSON.stringify(this.$store.state.character_table)));
+      ct = ct.filter(c => {
+        return (
+            c["itemObtainApproach"] !== null
+            && (this.$store.state.myOperators === null ? true : !(c['phases'][0]['characterPrefabKey'] in this.$store.state.myOperators))
+            && (this.filterClass.includes(c["profession"]) || (this.filterClass.length === 0))
+            && (this.filterRarity.includes(c["rarity"]) || (this.filterRarity.length === 0))
+            && (
+                (c.name.toLowerCase().match(this.filterName.toLowerCase()) !== null)
+                || (c.appellation.toLowerCase().match(this.filterName.toLowerCase()) !== null)
+                || (c.pinyinFull.match(this.filterName.toLowerCase()) !== null)
+                || (c.pinyinHead.match(this.filterName.toLowerCase()) !== null)
+            )
+        )
       })
-
       return ct
     },
   }

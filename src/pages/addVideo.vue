@@ -210,7 +210,6 @@
       </v-alert>
       <v-spacer></v-spacer>
     </v-row>
-    {{ process.env.VEU_APP_TEST }}
   </v-card>
 </template>
 
@@ -247,6 +246,7 @@ export default {
       this.Videos = data["data"]
     },
     addVideo: async function () {
+      console.log(process.env.VUE_APP_TEST)
       let data = {
         stage: this.selectedStage,
         group: this.group,

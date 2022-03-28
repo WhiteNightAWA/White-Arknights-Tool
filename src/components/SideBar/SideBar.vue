@@ -32,7 +32,7 @@
             dense
         >
           <div class="item"
-               v-for="i in items" :key="i.name"
+               v-for="i in items.filter(i => {return !i.name.startsWith(':')})" :key="i.name"
                :class="{ selected: isActive(i.path) }"
           >
             <router-link :to="i.path">
