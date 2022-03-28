@@ -19,15 +19,6 @@ module.exports = defineConfig({
     }
   },
   configureWebpack: {
-
-    plugins: [
-        new webpack.DefinePlugin({
-          "process.env": {
-            "BACKEND_KEY": JSON.stringify(process.env.BACKEND_KEY)
-          }
-        })
-    ],
-
     resolve: {
       fallback: {
         "child_process": false,

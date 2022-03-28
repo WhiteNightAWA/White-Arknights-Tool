@@ -210,6 +210,7 @@
       </v-alert>
       <v-spacer></v-spacer>
     </v-row>
+    {{ process.env.VEU_APP_TEST }}
   </v-card>
 </template>
 
@@ -242,7 +243,7 @@ export default {
   },
   methods: {
     getVideos: async function (stage) {
-      let data = await axios.get(`https://white-arknights-tool-back-end.vercel.app/data/${process.env.BACKEND_KEY}/${stage}`)
+      let data = await axios.get(`https://white-arknights-tool-back-end.vercel.app/data/${process.env.VUE_APP_BACKEND_KEY}/${stage}`)
       this.Videos = data["data"]
     },
     addVideo: async function () {
@@ -254,7 +255,7 @@ export default {
         time: this.time
       }
       try {
-        await axios.post(`https://white-arknights-tool-back-end.vercel.app/data/${process.env.BACKEND_KEY}/`, data)
+        await axios.post(`https://white-arknights-tool-back-end.vercel.app/data/${process.env.VUE_APP_BACKEND_KEY}/`, data)
       } catch (err) {
         this.err = err
       }
