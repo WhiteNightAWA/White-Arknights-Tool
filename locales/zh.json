@@ -4,7 +4,13 @@
   "id": "zh",
 
   "developing": "此頁面仍在開發中，如果你發現任何Bugs，請報告：",
-
+  "phone": {
+    "wait": "等一下！",
+    "inProcess": "手機版還在開發中...",
+    "suggest": "我建議使用電腦或桌面版本。",
+    "desktop": "使用桌面版本",
+    "phone": "繼續使用實驗手機版本"
+  },
   "Sidebar": {
     "Home": "主頁",
     "RF": "攻略查找器",
@@ -93,10 +99,12 @@
   },
 
   "RFP": {
+    "needHelp": "這個頁面剛剛開始運行，現在攻略還不夠，如果你想幫我添加攻略，請在 Discord(White_Night_awa#1729) 聯繫我。",
     "stage": {
       "name": "關卡",
       "main": "主線",
-      "side": "主線",
+      "interlude": "插曲",
+      "side": "別傳",
       "showChallenge":  "顯示突襲模式",
       "showStory": "顯示戲情關卡",
       "challenge": "突襲",
@@ -115,19 +123,56 @@
       "map": "PRTS.地圖"
     },
     "video": {
-      "name": "影片"
+      "name": "影片",
+      "title": "標題",
+      "author": "作者",
+      "VL": "影片語言",
+      "VS": "影片伺服器"
     },
     "operators": {
-      "name": "幹員"
+      "name": "幹員",
+      "rarityOf": "幹員稀有度",
+      "numberOf": "幹員數量",
+      "warn": "這可能會增加搜索時間",
+      "filter": {
+        "name": "幹員過濾器",
+        "SC": "相同的職業",
+        "SS": "相同的副職業",
+        "OLFM": "幹員等級過濾器模式",
+        "NL": "相近等級",
+        "<level": "< 等級",
+        "OSLFM": "幹員技能等級過濾器模式",
+        "OTFM": "幹員信賴過濾器模式",
+        "<trust": "< 信賴",
+        "OPFM": "幹員潛能過濾器模式",
+        "<potential": "< 潛能",
+        "CUSU": "可以使用支援單位"
+      }
+    },
+    "from": "FROM",
+    "to": "TO",
+    "getResult": "獲取結果",
+    "result": "結果",
+    "search": "搜尋",
+    "noMore": "抱歉，這個關卡沒有更多的攻略...如果你想幫我添加攻略，請通過 Discord(White_Night_awa#1729) 聯繫我。",
+    "CT": "通關時間",
+    "action": "Action",
+    "filter": {
+      "noLimit": "不要限制",
+      "elite": "只在同一精英等級中",
+      "bigger": "大於（或更小）",
+      "same": "絕對相同"
     }
-
   },
 
   "MOP": {
     "my": "我的幹員",
     "all": "全部幹員",
     "search": "按姓名/拼音/拼音首字母/英文稱號搜尋",
-    "avatar": "顯示頭像"
+    "avatar": "顯示頭像",
+    "import": "導入幹員",
+    "export": "導出幹員",
+    "imported": "已導入"
   },
 
   "Settings": {
@@ -161,6 +206,10 @@
       "back": "返回",
       "sure": "當然",
       "typeDelete": "輸入\"Delete\"繼續"
+    },
+    "devMode": {
+      "name": "Developing Mode"
+
     }
   }
 }
