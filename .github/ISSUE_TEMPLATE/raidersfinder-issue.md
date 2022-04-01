@@ -2,7 +2,7 @@
 name: StrategiesFinder Issue
 about: Report bugs or error in StrategiesFinder
 title: ''
-labels: bug, StrategiesFinder
+labels: bug
 assignees: WhiteNightAWA
 
 ---
