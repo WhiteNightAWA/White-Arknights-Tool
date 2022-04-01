@@ -1,8 +1,8 @@
 ---
-name: RaidersFinder Issue
-about: Report bugs or error in RaidersFinder
+name: StrategiesFinder Issue
+about: Report bugs or error in StrategiesFinder
 title: ''
-labels: bug, RaidersFinder
+labels: bug, StrategiesFinder
 assignees: WhiteNightAWA
 
 ---
